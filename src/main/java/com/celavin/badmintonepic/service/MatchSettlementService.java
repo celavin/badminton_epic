@@ -10,6 +10,9 @@ public class MatchSettlementService {
     /**
      * 核心结算方法
      */
+
+
+    //明天写这里哦
     @Transactional // 保证所有更新要么全部成功，要么全部失败
     public void processMatchSettlement(MatchResult result) {
         Player winner = result.getWinner();
