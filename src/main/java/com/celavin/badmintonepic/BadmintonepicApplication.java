@@ -35,7 +35,7 @@ public class BadmintonepicApplication {
 			if (allPlayers.size() >= 2) {
 
 				// 模拟 5 场对决，看看会不会爆冷
-				for(int i=0; i<10; i++) {
+				for(int i=0; i<5; i++) {
 					Player p1 = allPlayers.get(0);
 					Player p2 = allPlayers.get(i+1);
 					matchEngine.simulate(p1, p2,3);
