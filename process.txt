@@ -1,3 +1,7 @@
+总路线
+比赛引擎->赛事调度->个人成就,积分系统->时间推进->补充碎碎念
+
+
 2026.3.3
 下一步完成第三层结算层,同时积分也要改  "MatchSettlementService"
 完成了,但总感觉rawmatchresult职责有点多而engine过于简洁了,问了deepseek说未来可能有风险而gemini则大力夸赞(毕竟是他提出来的hh)

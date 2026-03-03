@@ -17,7 +17,7 @@ public class MatchEngine {
     private GameEngine gameEngine;
     public RawMatchResult simulate(Player p1, Player p2, int bestOf) {
         RawMatchResult result = new RawMatchResult(p1,p2,bestOf);
-        System.out.println("=== 比赛开始：" + p1.getName() + " VS " + p2.getName() + " ===");
+        System.out.println("=== 比赛开始：" + p1.getName()+ " VS " + p2.getName() + " ===");
         while (!result.isMatchOver()) {
             GameScore score = gameEngine.simulateGame(p1, p2);
             result.addGame(score);
