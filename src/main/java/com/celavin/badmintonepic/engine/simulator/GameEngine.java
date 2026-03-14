@@ -43,13 +43,13 @@ public class GameEngine {
     }
 
     private double calculatePower(Player p, int form) {
-        double offense = Math.max(1, p.getOffense() + form);
+        //TODO 这里有点乱七八糟不过懒得管了,到时候回来修吧.反正不影响
+        //计算公式有待优化,不过目前能跑就行
+        double power = Math.max(1, p.getPower() + form);
         double skill = Math.max(1, p.getSkill() + form);
-        double defense = Math.max(1, p.getDefense() + form);
+        double defense = Math.max(1, p.getStamina() + form);
         double speed = Math.max(1, p.getSpeed() + form);
-
-        // FM 风格公式：进攻和技术是核心
-        return (offense * 0.35) + (skill * 0.35) + (defense * 0.2) + (speed * 0.1);
+        return (power * 0.35) + (skill * 0.35) + (defense * 0.2) + (speed * 0.1);
     }
 
     private boolean isGameFinished(int s1, int s2) {

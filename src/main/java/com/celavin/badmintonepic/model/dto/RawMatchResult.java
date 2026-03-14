@@ -26,9 +26,6 @@ public class RawMatchResult {
         this.loser = match.getLoser();
     }
 
-    // 已合并构造方法，移除重复定义
-    //TODO Auto-generated constructor stub
-
     // 显示结果
     public void show(){
         System.out.println("最终大比分 [" + p1Games + ":" + p2Games + "]");

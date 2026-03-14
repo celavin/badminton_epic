@@ -18,5 +18,4 @@ public class GameScore {
     public boolean isP1Win() { return p1Score > p2Score; }
     public int getPointDiff() { return Math.abs(p1Score - p2Score); }
 
-    // Getter 省略...
 }

@@ -36,8 +36,8 @@ public class PlayerGenerator {
 
         // 2. 属性生成 (1-20)
         // 使用高斯分布逻辑：大部分人在 10-14 之间，极少数天才 18+
-        p.setOffense(generateAttribute());
-        p.setDefense(generateAttribute());
+        p.setPower(generateAttribute());
+        p.setTactics(generateAttribute());
         p.setSkill(generateAttribute());
         p.setSpeed(generateAttribute());
         p.setStamina(generateAttribute());

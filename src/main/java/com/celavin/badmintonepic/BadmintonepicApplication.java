@@ -16,12 +16,10 @@ import java.util.List;
 // 请确保括号内的路径与你 PlayerMapper 所在的包名完全一致
 @MapperScan("com.celavin.badmintonepic.mapper")
 public class BadmintonepicApplication {
-	//@Autowired
-	//private static PlayerService playerService;
+
 
 
 	public static void main(String[] args) {
-		//playerService.initWorld();
 		SpringApplication.run(BadmintonepicApplication.class, args);
 	}
 	/**
@@ -30,6 +28,7 @@ public class BadmintonepicApplication {
 	@Bean
 	public CommandLineRunner runMatch(PlayerService playerService, MatchEngine matchEngine) {
 		return args -> {
+			playerService.initWorld();
 			// 从数据库随机选两个球员
 			List<Player> allPlayers = playerService.list();
 			if (allPlayers.size() >= 2) {
