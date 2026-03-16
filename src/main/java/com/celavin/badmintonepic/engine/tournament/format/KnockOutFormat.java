@@ -6,15 +6,7 @@ import com.celavin.badmintonepic.model.entity.Player;
 
 import java.util.List;
 
-public class KonckOutFormat implements TournamentFormat {
-    List<MatchNode> currentRoundMatches;//当前轮次正在进行的对阵列表。
-
-    int totalPlayers;//初始总人数（用于推算当前是几强赛）。
-
-    int currentRemaining;//当前存活人数（如 16 -> 8 -> 4）。
-
-    //TODO 实现方法,然后就可以单元测试了;
-
+public class KnockOutFormat implements TournamentFormat {
 
     @Override
     public void initBracket(List<Player> playerList) {
@@ -22,22 +14,27 @@ public class KonckOutFormat implements TournamentFormat {
     }
 
     @Override
-    public List<MatchNode> getPendingMatches() {
+    public List<MatchNode> getPlayableMatches() {
         return List.of();
     }
 
     @Override
-    public void processResultsAndAdvance(List<MatchNode> playedMatches) {
-
+    public void submitMatchResult(MatchNode node, RawMatchResult result) {
+        node.setWinner(result.getWinner());
     }
 
     @Override
-    public boolean hasWinner() {
+    public boolean isCompleted() {
         return false;
     }
 
     @Override
     public Player getChampion() {
         return null;
+    }
+
+    @Override
+    public String generateBracket() {
+        return "";
     }
 }
