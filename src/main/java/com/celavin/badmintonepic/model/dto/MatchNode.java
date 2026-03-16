@@ -41,6 +41,10 @@ public class MatchNode {
             throw new IllegalStateException("拓扑指针断裂！当前节点不属于父节点的子节点");
         }
     }
+    public void setResult(RawMatchResult result) {
+        this.result = result;
+        this.winner=result.getWinner();
+    }
 
 
 
@@ -89,9 +93,6 @@ public class MatchNode {
         return result;
     }
 
-    public void setResult(RawMatchResult result) {
-        this.result = result;
-    }
 
     public MatchNode getNextMatch() {
         return nextMatch;

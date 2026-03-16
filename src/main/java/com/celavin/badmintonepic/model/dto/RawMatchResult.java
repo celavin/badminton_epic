@@ -13,6 +13,11 @@ public class RawMatchResult {
     private int p2Games;
     private Player winner;
     private Player loser;
+    private boolean isBye; // 可选：加个标记表示这是否是轮空
+    private String remark;
+
+
+    public RawMatchResult(){}
 
     // 从Match对象构造结果
     public RawMatchResult(Match match) {
@@ -24,6 +29,15 @@ public class RawMatchResult {
         this.p2Games = match.getP2Games();
         this.winner = match.getWinner();
         this.loser = match.getLoser();
+    }
+    //轮空构造器
+    public static RawMatchResult createByeResult(Player winner) {
+        RawMatchResult result = new RawMatchResult();
+        // 如果你的内部没有 setter，就用对应的构造器
+        result.winner = winner;
+        result.isBye = true;
+        result.remark = "轮空晋级 (Bye)";
+        return result;
     }
 
     // 显示结果
