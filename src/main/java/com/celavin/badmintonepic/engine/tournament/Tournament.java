@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Tournament {
     private String tournamentName;
-    private TournamentLevel tournamentLevel ;
-    private TournamentFormat tournamentFormat;
+    private TournamentLevel level;
+    private TournamentFormat format;
     private int playerNums;
     private List<Player> playerList;
     private int bestOf;
@@ -24,23 +24,30 @@ public class Tournament {
     //初始化
     public void TournamentFormat(String name, TournamentLevel level, TournamentFormat format, List<Player> playerList){
         tournamentName = name;
-        tournamentLevel = level;
-        tournamentFormat = format;
+        this.level = level;
+        this.format = format;
         this.playerList = playerList;
-        tournamentFormat.initBracket(playerList);
+        this.format.initBracket(playerList);
 
     }
 
     //核心方法,模拟一轮,至于一轮是包含什么,在format类里的方法规定
     public void simulateNextStep (MatchEngine matchEngine, MatchSettlementService matchSettlementService){
-        if(tournamentFormat.isCompleted()) return;
-        List<MatchNode> playableMatches = tournamentFormat.getPlayableMatches();
+        if(format.isCompleted()) return;
+        List<MatchNode> playableMatches = format.getPlayableMatches();
         if (playableMatches.isEmpty()) return;
 
         for (MatchNode matchNode : playableMatches) {
             RawMatchResult result = matchEngine.simulate(matchNode, bestOf);
             //todo 这里找个地方变成matchresult类
-            tournamentFormat.submitMatchResult(matchNode,result);
+            format.submitMatchResult(matchNode,result);
+        }
+
+        //完结后调整boolean并生成dto
+        if(format.isCompleted()) {
+            isFinished=true;
+            //todo 赛事归档待完善
+
         }
     }
 

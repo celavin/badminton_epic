@@ -12,7 +12,7 @@ public class KnockOutFormat implements TournamentFormat {
     private MatchNode rootMatch; // 总决赛节点 (树根)
     private List<MatchNode> allMatches = new ArrayList<>(); // 方便扁平化查询所有比赛
 
-    //TODO 实现一下建树和其他方法,
+    //TODO 实现一下建树和其他方法
     //TODO 实现了我还没看
 
     @Override

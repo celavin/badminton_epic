@@ -44,7 +44,7 @@ public class GameEngine {
     }
 
     private double calculatePower(Player p, int form) {
-        //TODO 这里有点乱七八糟不过懒得管了,到时候回来修吧.反正不影响
+        //TODO 先不管,计算公式待优化
         //计算公式有待优化,不过目前能跑就行
         double power = Math.max(1, p.getPower() + form);
         double skill = Math.max(1, p.getSkill() + form);

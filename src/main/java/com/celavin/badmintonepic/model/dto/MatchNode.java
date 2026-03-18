@@ -22,7 +22,7 @@ public class MatchNode {
     }
 
     // 核心状态判断：这场比赛现在能打了吗？(双方落位，且还没打过)
-    //TODO 暂时不处理轮空
+
     public boolean isPlayable() {
         return p1 != null && p2 != null && winner == null;
     }
