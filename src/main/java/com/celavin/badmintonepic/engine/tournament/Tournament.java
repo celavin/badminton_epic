@@ -39,7 +39,12 @@ public class Tournament {
 
         for (MatchNode matchNode : playableMatches) {
             RawMatchResult result = matchEngine.simulate(matchNode, bestOf);
+            //todo 这里找个地方变成matchresult类
             tournamentFormat.submitMatchResult(matchNode,result);
         }
+    }
+
+    public Player getChampion() {
+        return champion;
     }
 }

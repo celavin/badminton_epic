@@ -94,8 +94,10 @@ public class KnockOutFormat implements TournamentFormat {
             // === 处理轮空 (Bye) 的高光时刻 ===
             // 如果 P1 有人，但 P2 没人（轮空），P1 自动获胜进入下一轮！
             if (leaf.getP1() != null && leaf.getP2() == null) {
-                //todo 处理一下生成rawresult的规范性
-                leaf.pushWinnerToNext();
+                //todo 处理一下生成rawresult的规范性 当前情况下会造成该节点无result的问题
+                //原本:leaf.pushWinnerToNext();
+                //修改后:
+                submitMatchResult(leaf,RawMatchResult.createByeResult(leaf.getP1()));
             }
             // 极端情况：P1 和 P2 都没人（报名人数太少导致大量空节点），直接跳过
         }

@@ -12,7 +12,7 @@ public class GameEngine {
 
     /**
      * 模拟单局 21 分比赛
-     * @return 返回比分字符串，如 "21-18"
+     * @return 返回GameScore类
      */
     public GameScore simulateGame(Player p1, Player p2) {
         int score1 = 0;
