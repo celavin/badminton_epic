@@ -19,7 +19,7 @@ public class TournamentResult {
     // 3. 完整赛事快照 (用于渲染历届赛事的对阵图)
     private MatchNode finalBracketRoot; // 树形结构的根节点(决赛节点)，包含了整届比赛的所有交手记录
 
-    // 构造器 todo 这个构造方法似乎参数不够全面
+    // 构造器 todo 这个构造方法参数不够全面,1.直接补全2.其他方式优化
     public TournamentResult(String tournamentName, TournamentLevel level, LocalDate date,
                             Player champion, Player runnerUp, MatchNode finalBracketRoot) {
         this.tournamentName = tournamentName;
