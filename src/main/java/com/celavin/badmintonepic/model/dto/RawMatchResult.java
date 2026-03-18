@@ -33,10 +33,17 @@ public class RawMatchResult {
     //轮空构造器
     public static RawMatchResult createByeResult(Player winner) {
         RawMatchResult result = new RawMatchResult();
-        // 如果你的内部没有 setter，就用对应的构造器
+        // 防止空指针异常
         result.winner = winner;
+        result.loser = null;
+        result.p1 = winner;
+        result.p2=null;
         result.isBye = true;
         result.remark = "轮空晋级 (Bye)";
+        result.scores = new java.util.ArrayList<>(); // 补充：初始化为空列表，防止前端或转换 MatchResult 时遍历报错
+        result.bestOf = 0;   // 轮空不需要打
+        result.p1Games = 0;
+        result.p2Games = 0;
         return result;
     }
 

@@ -1,5 +1,5 @@
 package com.celavin.badmintonepic.model.dto;
-
+//基本完备
 public class GameScore {
     private int p1Score;
     private int p2Score;

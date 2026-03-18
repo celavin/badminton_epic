@@ -33,6 +33,10 @@ public class MatchNode {
     }
 
     public void pushWinnerToNext(){
+        if (nextMatch == null) {
+            // 如果 nextMatch 为空，说明当前已经是决赛节点且直接夺冠了
+            return;
+        }
         if (this == nextMatch.getPrevMatch1()) {
             nextMatch.setP1(this.winner);
         } else if (this == nextMatch.getPrevMatch2()) {

@@ -5,7 +5,7 @@ import com.celavin.badmintonepic.model.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//基本完备
 public class Match {
     private Player p1;
     private Player p2;

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 //只负责系列赛,传入比赛选手和最多场次,其他不管
+//基本完备
 @Service
 public class MatchEngine {
     @Autowired

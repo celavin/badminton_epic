@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Random;
 //只负责模拟单场比赛,其他不管
+//基本完备
 @Component
 public class GameEngine {
     private final Random random = new Random();
