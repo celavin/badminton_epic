@@ -5,6 +5,7 @@ import com.celavin.badmintonepic.engine.tournament.format.TournamentFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 import com.celavin.badmintonepic.model.dto.RawMatchResult;
+import com.celavin.badmintonepic.model.dto.TournamentResult;
 import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.service.MatchSettlementService;
 
@@ -16,7 +17,7 @@ public class Tournament {
     private TournamentFormat format;
     private int playerNums;
     private List<Player> playerList;
-    private int bestOf;
+    private int bestOf=3;//todo 默认值找个地方
     private boolean isFinished;
     private Player champion;
 
@@ -39,19 +40,86 @@ public class Tournament {
 
         for (MatchNode matchNode : playableMatches) {
             RawMatchResult result = matchEngine.simulate(matchNode, bestOf);
-            //todo 这里找个地方变成matchresult类
+            //todo 这里找个地方变成matchresult类 待
             format.submitMatchResult(matchNode,result);
         }
 
         //完结后调整boolean并生成dto
         if(format.isCompleted()) {
-            isFinished=true;
-            //todo 赛事归档待完善
+
+            archive();
 
         }
     }
 
     public Player getChampion() {
         return champion;
+    }
+    public void archive(){
+        isFinished=true;
+        champion=format.getChampion();
+        new TournamentResult(this);
+        //todo 存入数据库
+    }
+
+
+    public String getTournamentName() {
+        return tournamentName;
+    }
+
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
+    public TournamentLevel getLevel() {
+        return level;
+    }
+
+    public void setLevel(TournamentLevel level) {
+        this.level = level;
+    }
+
+    public TournamentFormat getFormat() {
+        return format;
+    }
+
+    public void setFormat(TournamentFormat format) {
+        this.format = format;
+    }
+
+    public int getPlayerNums() {
+        return playerNums;
+    }
+
+    public void setPlayerNums(int playerNums) {
+        this.playerNums = playerNums;
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
+    }
+
+    public int getBestOf() {
+        return bestOf;
+    }
+
+    public void setBestOf(int bestOf) {
+        this.bestOf = bestOf;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
+    }
+
+    public void setChampion(Player champion) {
+        this.champion = champion;
     }
 }

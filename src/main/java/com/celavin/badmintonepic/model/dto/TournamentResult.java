@@ -1,5 +1,6 @@
 package com.celavin.badmintonepic.model.dto;
 
+import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.entity.Player;
 import java.time.LocalDate;
@@ -29,6 +30,17 @@ public class TournamentResult {
         this.runnerUp = runnerUp;
         this.finalBracketRoot = finalBracketRoot;
     }
+
+    public TournamentResult(Tournament tournament){
+
+        tournamentName=tournament.getTournamentName();
+        level=tournament.getLevel();
+        //todo 先不管 后续时间系统完善后补完
+        date=null;
+        champion=tournament.getChampion();
+        finalBracketRoot=tournament.getFormat().getFinalNode();
+    }
+    //todo 先不管 需要一个方法渲染赛事图
 
     // Getter 和 Setter
 }

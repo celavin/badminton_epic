@@ -7,7 +7,7 @@ import com.celavin.badmintonepic.model.entity.Player;
 import java.time.LocalDateTime;
 import java.util.List;
 
-//todo tournament和matchresult和raw之间的关系需要处理
+
 public class MatchResult {
     // 1. 核心结果
     private Player winner;

@@ -20,4 +20,6 @@ public interface TournamentFormat {
 
     // (UI渲染相关的方法可以先保留，或者后续移到专门的 Printer 类中)
     String generateBracket();
+    MatchNode getFinalNode();
+
 }

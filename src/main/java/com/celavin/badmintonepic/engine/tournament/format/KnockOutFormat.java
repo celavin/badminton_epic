@@ -12,7 +12,7 @@ public class KnockOutFormat implements TournamentFormat {
     private MatchNode rootMatch; // 总决赛节点 (树根)
     private List<MatchNode> allMatches = new ArrayList<>(); // 方便扁平化查询所有比赛
 
-    //TODO 实现一下建树和其他方法
+
     @Override
     public void initBracket(List<Player> playerList) {
         if (playerList == null || playerList.isEmpty()) return;
@@ -112,17 +112,22 @@ public class KnockOutFormat implements TournamentFormat {
 
     @Override
     public boolean isCompleted() {
-        return false;
+        return rootMatch.getWinner()!=null;
     }
 
     @Override
     public Player getChampion() {
-        return null;
+        return rootMatch.getWinner();
     }
-
+    //todo 先不管 转移到tournamentresult类实现渲染?
     @Override
     public String generateBracket() {
         return "";
+    }
+
+    @Override
+    public MatchNode getFinalNode() {
+        return getRootMatch();
     }
 
     /**
@@ -140,5 +145,22 @@ public class KnockOutFormat implements TournamentFormat {
             // 比如 slots 是 16，就是 "16强赛" 或者叫 "1/8决赛"
             return slots + "强赛";
         }
+    }
+
+
+    public MatchNode getRootMatch() {
+        return rootMatch;
+    }
+
+    public void setRootMatch(MatchNode rootMatch) {
+        this.rootMatch = rootMatch;
+    }
+
+    public List<MatchNode> getAllMatches() {
+        return allMatches;
+    }
+
+    public void setAllMatches(List<MatchNode> allMatches) {
+        this.allMatches = allMatches;
     }
 }
