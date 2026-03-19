@@ -101,7 +101,9 @@ public class KnockOutFormat implements TournamentFormat {
 
     @Override
     public List<MatchNode> getPlayableMatches() {
-        return List.of();
+        return allMatches.stream()
+                .filter(MatchNode::isPlayable)
+                .toList();
     }
 
     @Override

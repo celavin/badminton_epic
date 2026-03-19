@@ -18,4 +18,19 @@ public class GameScore {
     public boolean isP1Win() { return p1Score > p2Score; }
     public int getPointDiff() { return Math.abs(p1Score - p2Score); }
 
+    public int getP1Score() {
+        return p1Score;
+    }
+
+    public void setP1Score(int p1Score) {
+        this.p1Score = p1Score;
+    }
+
+    public int getP2Score() {
+        return p2Score;
+    }
+
+    public void setP2Score(int p2Score) {
+        this.p2Score = p2Score;
+    }
 }

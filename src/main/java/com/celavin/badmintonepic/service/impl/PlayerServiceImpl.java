@@ -12,14 +12,14 @@ import java.util.List;
 @Service
 public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> implements PlayerService {
     @Override
-    public void initWorld() {
+    public void initWorld(int num) {
         this.remove(null);
 
         // 生成 200 个球员
-        List<Player> players = PlayerGenerator.generateBatch(200);
+        List<Player> players = PlayerGenerator.generateBatch(num);
 
         // 批量插入
         this.saveBatch(players);
-        System.out.println("成功初始化 200 名球员！");
+        System.out.println("成功初始化"+ num +"名球员！");
     }
 }

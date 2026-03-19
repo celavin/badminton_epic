@@ -13,7 +13,7 @@ class BadmintonepicApplicationTests {
 
 	@Test
 	void testInit() {
-		playerService.initWorld();
+		playerService.initWorld(16);
 	}
 
 

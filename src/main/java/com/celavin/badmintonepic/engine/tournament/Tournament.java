@@ -23,7 +23,7 @@ public class Tournament {
 
 
     //初始化
-    public void TournamentFormat(String name, TournamentLevel level, TournamentFormat format, List<Player> playerList){
+    public Tournament(String name, TournamentLevel level, TournamentFormat format, List<Player> playerList){
         tournamentName = name;
         this.level = level;
         this.format = format;
@@ -33,6 +33,7 @@ public class Tournament {
     }
 
     //核心方法,模拟一轮,至于一轮是包含什么,在format类里的方法规定
+    //字段有点多余
     public void simulateNextStep (MatchEngine matchEngine, MatchSettlementService matchSettlementService){
         if(format.isCompleted()) return;
         List<MatchNode> playableMatches = format.getPlayableMatches();
@@ -43,15 +44,17 @@ public class Tournament {
             //todo 这里找个地方变成matchresult类 待
             format.submitMatchResult(matchNode,result);
         }
-
         //完结后调整boolean并生成dto
         if(format.isCompleted()) {
-
             archive();
-
         }
     }
-
+    //一次性模拟完
+    public void simulateAll(MatchEngine matchEngine, MatchSettlementService matchSettlementService) {
+        while(!isFinished){
+            simulateNextStep(matchEngine,matchSettlementService);
+        }
+    }
     public Player getChampion() {
         return champion;
     }
