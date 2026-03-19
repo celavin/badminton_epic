@@ -22,25 +22,6 @@ public class BadmintonepicApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BadmintonepicApplication.class, args);
 	}
-	/**
-	 * 启动后自动运行
-	 */
-	@Bean
-	public CommandLineRunner runMatch(PlayerService playerService, MatchEngine matchEngine) {
-		return args -> {
-			playerService.initWorld();
-			// 从数据库随机选两个球员
-			List<Player> allPlayers = playerService.list();
-			if (allPlayers.size() >= 2) {
-
-				// 模拟 5 场对决，看看会不会爆冷
-				for(int i=0; i<5; i++) {
-					Player p1 = allPlayers.get(0);
-					Player p2 = allPlayers.get(i+1);
-					matchEngine.simulate(p1, p2,3);
-				}
-			}
-		};
-	}
+	
 
 }

@@ -31,7 +31,7 @@ public class MatchNode {
     public boolean isPlayed() {
         return winner != null;
     }
-
+    //todo 有个问题:pushtonext,当前似乎只适用于单败淘汰制,对其他赛制扩展性不高.先不管
     public void pushWinnerToNext(){
         if (nextMatch == null) {
             // 如果 nextMatch 为空，说明当前已经是决赛节点且直接夺冠了

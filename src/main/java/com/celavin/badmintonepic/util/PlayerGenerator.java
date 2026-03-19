@@ -9,8 +9,8 @@ public class PlayerGenerator {
     private static final Random random = new Random();
 
     // 名字池（简易版，你可以以后扩充）
-    private static final String[] SURNAMES = {"林", "李", "王", "张", "Axelsen", "Ginting", "桃田", "Antonsen", "石", "周"};
-    private static final String[] GIVEN_NAMES = {"丹", "宗伟", "宇奇", "Viktor", "Anthony", "贤斗", "Anders", "天成"};
+    private static final String[] SURNAMES = {"林", "李", "王", "张", "陈", "刘", "杨", "黄", "赵", "吴", "周", "徐", "孙", "马", "朱", "胡", "郭", "何", "高", "林"};
+    private static final String[] GIVEN_NAMES = {"丹", "宗伟", "宇奇", "明", "华", "强", "伟", "芳", "娜", "敏", "静", "丽", "强", "磊", "军", "洋", "勇", "艳", "杰", "涛"};
 
     // 国籍池与权重（中国、印尼、丹麦、日本、马来西亚等）
     private static final String[] COUNTRIES = {"中国", "印度尼西亚", "丹麦", "日本", "马来西亚", "中国台北", "泰国"};
