@@ -35,7 +35,7 @@ public class TournamentTest {
         for (MatchNode match : allMatches) {
             match.show();
         }
-        // todo 渲染对阵图
+
 
     }
 
