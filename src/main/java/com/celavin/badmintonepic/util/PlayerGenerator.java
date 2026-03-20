@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-
+//todo 待解耦
 public class PlayerGenerator {
     private static final Random random = new Random();
 
