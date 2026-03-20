@@ -1,6 +1,5 @@
 package com.celavin.badmintonepic;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.celavin.badmintonepic.engine.simulator.MatchEngine;
 import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.engine.tournament.format.KnockOutFormat;
@@ -17,11 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @SpringBootTest
-public class TournamentTest {
+public class TournamentTempTest {
     @Autowired
     PlayerService  playerService;
     @Autowired
@@ -29,18 +26,10 @@ public class TournamentTest {
     @Autowired
     MatchSettlementService matchSettlementService;
     @Test
-    //单场细节
+        //单场细节
     void singleDetailedTest(){
-        int limitCount = 8;
 
-        QueryWrapper<Player> queryWrapper = new QueryWrapper<>();
-        // PostgreSQL 专属的随机排序并限制数量
-        queryWrapper.last("ORDER BY RANDOM() LIMIT " + limitCount);
-
-        List<Player> list = playerService.list(queryWrapper);
-
-        //List<Player> list = playerService.list();
-
+        List<Player> list = playerService.generatePlayerTemp(8);
         Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
         t.simulateAll(matchEngine,matchSettlementService);
         MatchNode finalNode = t.getFormat().getFinalNode();
@@ -53,15 +42,16 @@ public class TournamentTest {
 
     }
     @Test
-    //多场看实力
+        //多场看实力
     void manyTimestest(){
         HashMap<String,Integer> championCounts = new HashMap<>();
-        List<Player> list = playerService.list();
+        List<Player> list = playerService.generatePlayerTemp(8);
         for (int i = 0; i < 10000; i++) {
             Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
             t.simulateAll(matchEngine,matchSettlementService);
             championCounts.put(t.getChampion().getName(),championCounts.getOrDefault(t.getChampion().getName(),0)+1);
         }
+
         System.out.println(championCounts);
     }
 

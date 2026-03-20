@@ -5,6 +5,7 @@ import com.celavin.badmintonepic.model.dto.RawMatchResult;
 import com.celavin.badmintonepic.model.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class KnockOutFormat implements TournamentFormat {
@@ -80,6 +81,7 @@ public class KnockOutFormat implements TournamentFormat {
      * 步骤 4 核心：填入玩家，绝妙的“轮空”自动推演逻辑
      */
     private void fillPlayersAndHandleByes(List<Player> players, List<MatchNode> leafNodes) {
+        Collections.shuffle(players);
         int playerIndex = 0;
 
         for (MatchNode leaf : leafNodes) {
