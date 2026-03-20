@@ -14,10 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @SpringBootTest
@@ -31,15 +28,15 @@ public class TournamentTest {
     @Test
     //单场细节
     void singleDetailedTest(){
-        int limitCount = 8;
+        int limitCount = 16;
 
         QueryWrapper<Player> queryWrapper = new QueryWrapper<>();
         // PostgreSQL 专属的随机排序并限制数量
         queryWrapper.last("ORDER BY RANDOM() LIMIT " + limitCount);
 
-        List<Player> list = playerService.list(queryWrapper);
+        List<Player> lists = playerService.list(queryWrapper);
 
-        //List<Player> list = playerService.list();
+        List<Player> list = playerService.list();
 
         Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
         t.simulateAll(matchEngine,matchSettlementService);
@@ -55,14 +52,25 @@ public class TournamentTest {
     @Test
     //多场看实力
     void manyTimestest(){
-        HashMap<String,Integer> championCounts = new HashMap<>();
+        HashMap<String,Integer> championCounts = new HashMap<>();//todo 后续可优化,储存更多成绩
         List<Player> list = playerService.list();
         for (int i = 0; i < 10000; i++) {
             Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
             t.simulateAll(matchEngine,matchSettlementService);
             championCounts.put(t.getChampion().getName(),championCounts.getOrDefault(t.getChampion().getName(),0)+1);
         }
-        System.out.println(championCounts);
+        HashMap<String,Integer> sortedMap =
+                championCounts.entrySet()
+                        .stream()
+                                .sorted(Map.Entry.<String,Integer>comparingByValue().reversed())
+                                        .collect(Collectors.toMap(
+                                                Map.Entry::getKey,
+                                                Map.Entry::getValue,
+                                                (e1,e2)->e1, LinkedHashMap::new
+                                                ));
+
+
+        System.out.println(sortedMap);
     }
 
 
