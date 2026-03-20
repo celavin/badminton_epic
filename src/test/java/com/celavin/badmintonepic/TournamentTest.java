@@ -10,6 +10,7 @@ import com.celavin.badmintonepic.model.dto.RawMatchResult;
 import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.service.MatchSettlementService;
 import com.celavin.badmintonepic.service.PlayerService;
+import com.celavin.badmintonepic.util.TournamentPrinter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,10 +32,11 @@ public class TournamentTest {
         Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
         t.simulateAll(matchEngine,matchSettlementService);
         MatchNode finalNode = t.getFormat().getFinalNode();
-        List<MatchNode> allMatches = t.getFormat().getAllMatches();
+        /*List<MatchNode> allMatches = t.getFormat().getAllMatches();
         for (MatchNode match : allMatches) {
             match.show();
-        }
+        }*/
+        TournamentPrinter.show(finalNode);
 
 
     }

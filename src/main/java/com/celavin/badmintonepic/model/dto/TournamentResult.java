@@ -40,7 +40,7 @@ public class TournamentResult {
         champion=tournament.getChampion();
         finalBracketRoot=tournament.getFormat().getFinalNode();
     }
-    //todo 先不管 需要一个方法渲染赛事图
+
 
     // Getter 和 Setter
 }
