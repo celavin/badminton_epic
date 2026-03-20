@@ -28,7 +28,7 @@ public class TournamentTest {
     void test(){
         playerService.initWorld(16);
         List<Player> list = playerService.list();
-        Tournament t = new Tournament("london", TournamentLevel.RANKED,new KnockOutFormat(),list);
+        Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
         t.simulateAll(matchEngine,matchSettlementService);
         MatchNode finalNode = t.getFormat().getFinalNode();
         List<MatchNode> allMatches = t.getFormat().getAllMatches();
