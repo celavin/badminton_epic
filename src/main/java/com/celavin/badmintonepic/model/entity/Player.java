@@ -25,6 +25,12 @@ public class Player {
     private int highestPoints = 1200;//default(从第二年开始,每年第一月第一天刷新)
 
 
+    @Override
+    public String toString() {
+        return name + "[" + power + "," + speed + "," + skill + "," + tactics + "," + stamina + "," + mental + "]";
+    }
+
+
     public Long getId() {
         return id;
     }

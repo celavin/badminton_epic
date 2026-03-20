@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> implements PlayerService {
     @Override
-    public void initWorld(int num) {
+    public List<Player> initWorld(int num) {
         this.remove(null);
 
         // 生成 200 个球员
@@ -21,5 +21,13 @@ public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> impleme
         // 批量插入
         this.saveBatch(players);
         System.out.println("成功初始化"+ num +"名球员！");
+        return players;
+    }
+
+    @Override
+    public List<Player> generatePlayerTemp(int num) {
+        List<Player> players = PlayerGenerator.generateBatch(num);
+        System.out.println("成功生成"+ num +"名球员！");
+        return players;
     }
 }

@@ -7,20 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
 @SpringBootTest
-class BadmintonepicApplicationTests {
-
-	@Autowired
-	private PlayerService playerService;
-
-	@Test
-	void testInit() {
-		List<Player> list = playerService.list();
-		for (Player player : list) {
-			System.out.println(player);
-		}
-	}
-
-
+public class generateTest {
+    @Autowired
+    PlayerService playerService;
+    @Test
+    void test(){
+        List<Player> players = playerService.initWorld(32);
+        for (Player player : players) {
+            System.out.println(player);
+        }
+    }
 }
