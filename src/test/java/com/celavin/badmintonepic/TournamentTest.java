@@ -31,6 +31,10 @@ public class TournamentTest {
         Tournament t = new Tournament("london", TournamentLevel.RANKED,new KnockOutFormat(),list);
         t.simulateAll(matchEngine,matchSettlementService);
         MatchNode finalNode = t.getFormat().getFinalNode();
+        List<MatchNode> allMatches = t.getFormat().getAllMatches();
+        for (MatchNode match : allMatches) {
+            match.show();
+        }
         // todo 渲染对阵图
 
     }

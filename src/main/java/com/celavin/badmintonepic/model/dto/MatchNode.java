@@ -49,6 +49,10 @@ public class MatchNode {
         this.result = result;
         this.winner=result.getWinner();
     }
+    public void show(){
+        System.out.println(roundName+":"+p1.getName()+" vs "+p2.getName());
+        result.show();
+    }
 
 
 

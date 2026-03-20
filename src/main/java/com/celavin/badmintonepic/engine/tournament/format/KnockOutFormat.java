@@ -27,7 +27,7 @@ public class KnockOutFormat implements TournamentFormat {
         totalRounds--; // 如果 bracketSize 是 16，就是 4 轮 (16进8, 8进4, 半决赛, 决赛)
 
         // 2. 自顶向下递归建空树
-        this.rootMatch = buildEmptyTree(totalRounds, null);
+        this.rootMatch = buildEmptyTree(totalRounds, totalRounds, null);
 
         // 3. 收集所有的最底层叶子节点 (也就是第一轮的所有比赛)
         List<MatchNode> leafNodes = new ArrayList<>();
@@ -39,13 +39,16 @@ public class KnockOutFormat implements TournamentFormat {
 
     /**
      * 步骤 2 核心：递归建树
+     * @param totalRounds 总轮次
      * @param remainingRounds 距离最底层还有几轮
      * @param nextMatch 下一场比赛（父节点）
      */
-    private MatchNode buildEmptyTree(int remainingRounds, MatchNode nextMatch) {
+    private MatchNode buildEmptyTree(int totalRounds, int remainingRounds, MatchNode nextMatch) {
         if (remainingRounds == 0) return null;
 
-        String roundName = getRoundName(1 << remainingRounds); // 1<<1是2强(决赛)，1<<2是4强
+        // 计算当前轮次的实际位置（从1开始，1是决赛）
+        int currentRound = totalRounds - remainingRounds + 1;
+        String roundName = getRoundName(1 << currentRound); // 1<<1是2强(决赛)，1<<2是4强
         MatchNode currentMatch = new MatchNode(roundName);
         currentMatch.setNextMatch(nextMatch);
 
@@ -53,8 +56,8 @@ public class KnockOutFormat implements TournamentFormat {
 
         // 如果还没到底层，继续往下建前置比赛
         if (remainingRounds > 1) {
-            currentMatch.setPrevMatch1(buildEmptyTree(remainingRounds - 1, currentMatch));
-            currentMatch.setPrevMatch2(buildEmptyTree(remainingRounds - 1, currentMatch));
+            currentMatch.setPrevMatch1(buildEmptyTree(totalRounds, remainingRounds - 1, currentMatch));
+            currentMatch.setPrevMatch2(buildEmptyTree(totalRounds, remainingRounds - 1, currentMatch));
         }
 
         return currentMatch;
@@ -143,8 +146,10 @@ public class KnockOutFormat implements TournamentFormat {
             return "半决赛";
         } else if (slots == 8) {
             return "1/4决赛";
+        } else if (slots == 16) {
+            return "1/8决赛";
         } else {
-            // 比如 slots 是 16，就是 "16强赛" 或者叫 "1/8决赛"
+            // 比如 slots 是 32，就是 "32强赛"
             return slots + "强赛";
         }
     }

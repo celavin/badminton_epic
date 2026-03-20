@@ -29,13 +29,12 @@ public class Match {
 
     // 执行比赛
     public RawMatchResult play() {
-        System.out.println("=== 比赛开始：" + p1.getName()+ " VS " + p2.getName() + " ===");
+        //System.out.println("=== 比赛开始：" + p1.getName()+ " VS " + p2.getName() + " ===");
         while (!isMatchOver()) {
             GameScore score = gameEngine.simulateGame(p1, p2);
             addGame(score);
         }
         finish();
-        show();
         return new RawMatchResult(this);
     }
 
