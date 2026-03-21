@@ -3,6 +3,7 @@
 当前进度:赛事调度
 
 3.21
+明日:找到合适地方存储
 我已经建立了tounaments表和enetity类,目前的问题是vo和entity的转换以及entity的存储
 找个时间重新理一遍,不然功能啥的都忘了
 1.优化playerservice和generator (over)

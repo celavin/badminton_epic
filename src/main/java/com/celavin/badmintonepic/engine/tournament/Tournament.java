@@ -12,6 +12,7 @@ import com.celavin.badmintonepic.service.MatchSettlementService;
 import java.util.List;
 
 public class Tournament {
+
     private String tournamentName;
     private TournamentLevel level;
     private TournamentFormat format;
@@ -61,8 +62,11 @@ public class Tournament {
     public void archive(){
         isFinished=true;
         champion=format.getChampion();
-        new TournamentVO(this);
-        //todo 存入数据库
+        //new TournamentVO(this);//todo 这个地方实际上并没有用上
+
+        //todo 存入数据库,改用entity类
+
+
     }
 
 
