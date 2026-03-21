@@ -1,8 +1,11 @@
 总路线
 比赛引擎->赛事调度->个人成就,积分系统->时间推进->补充碎碎念
+当前进度:赛事调度
 
 3.21
-1.优化playerservice和generator
+我已经建立了tounaments表和enetity类,目前的问题是vo和entity的转换以及entity的存储
+找个时间重新理一遍,不然功能啥的都忘了
+1.优化playerservice和generator (over)
 2.赛事持久化存储
 3.封装大比分(感觉好像没什么必要,先搁置)
 

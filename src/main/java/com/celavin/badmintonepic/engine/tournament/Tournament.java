@@ -5,7 +5,7 @@ import com.celavin.badmintonepic.engine.tournament.format.TournamentFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 import com.celavin.badmintonepic.model.dto.RawMatchResult;
-import com.celavin.badmintonepic.model.dto.TournamentResult;
+import com.celavin.badmintonepic.model.dto.TournamentVO;
 import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.service.MatchSettlementService;
 
@@ -41,7 +41,7 @@ public class Tournament {
 
         for (MatchNode matchNode : playableMatches) {
             RawMatchResult result = matchEngine.simulate(matchNode, bestOf);
-            //todo 这里找个地方变成matchresult类 待
+            //todo 这里找个地方变成matchresult类 传进第三层,等第三层完成先
             format.submitMatchResult(matchNode,result);
         }
         //完结后调整boolean并生成dto
@@ -61,7 +61,7 @@ public class Tournament {
     public void archive(){
         isFinished=true;
         champion=format.getChampion();
-        new TournamentResult(this);
+        new TournamentVO(this);
         //todo 存入数据库
     }
 

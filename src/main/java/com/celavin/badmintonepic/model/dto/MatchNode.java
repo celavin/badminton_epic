@@ -15,8 +15,10 @@ public class MatchNode {
 
     private MatchNode nextMatch;  // 胜者去哪：父节点（下一轮）
     private MatchNode prevMatch1; // p1 怎么来的：左子节点（前置比赛1）
-    private MatchNode prevMatch2; // p2 怎么来的：右子节点（前置比赛2）
+    private MatchNode prevMatch2;// p2 怎么来的：右子节点（前置比赛2）
 
+
+    public MatchNode(){}
     public MatchNode(String roundName) {
         this.roundName = roundName;
     }

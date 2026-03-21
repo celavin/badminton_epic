@@ -32,4 +32,14 @@ public class generateTest {
         }
 
     }
+    @Test
+    void generateByHand(){
+        Player p = new Player();
+        p.setId(999L);
+        p.setAge(18);
+        p.setNationality("中国");
+        p.setName("张三");
+        playerService.save(p);
+
+    }
 }

@@ -16,7 +16,11 @@ class BadmintonepicApplicationTests {
 
 	@Test
 	void test() {
-		playerService.initWorld(32);
+		playerService.remove(null);
+		playerService.generateAndSavePlayers(8,"中国");
+		playerService.generateAndSavePlayers(8,"中国台北");
+		playerService.generateAndSavePlayers(8,"日本");
+		playerService.generateAndSavePlayers(8,"英格兰");
 	}
 
 
