@@ -62,10 +62,6 @@ public class Tournament {
     public void archive(){
         isFinished=true;
         champion=format.getChampion();
-        //new TournamentVO(this);//todo 这个地方实际上并没有用上
-
-        //todo 存入数据库,改用entity类
-
 
     }
 
