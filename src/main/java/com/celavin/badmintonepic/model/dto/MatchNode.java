@@ -14,7 +14,7 @@ public class MatchNode {
     private Player loser;//需要吗?
     private RawMatchResult result;//结束后填充;
 
-
+    @JsonIgnore
     private MatchNode nextMatch;  // 胜者去哪：父节点（下一轮）
 
     private MatchNode prevMatch1; // p1 怎么来的：左子节点（前置比赛1）

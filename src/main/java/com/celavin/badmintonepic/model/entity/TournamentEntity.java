@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.enums.TournamentLevel;
+import com.celavin.badmintonepic.handler.PgJsonbTypeHandler;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class TournamentEntity {
     // 赛事级别（MyBatis 默认会将 Enum 映射为 String 存入数据库）
     private TournamentLevel level;
     // 复杂的对阵图树节点，交由 JacksonTypeHandler 序列化为 JSON 字符串存入 JSONB 字段
-    @TableField(typeHandler = JacksonTypeHandler.class)
+    @TableField(typeHandler = PgJsonbTypeHandler.class)
     private MatchNode finalNode;
     // 只存储外键 ID，不嵌套庞大的 Player 对象
     private Long championId;
