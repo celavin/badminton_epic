@@ -28,7 +28,7 @@ public class TournamentTempTest {
         //单场细节
     void singleDetailedTest(){
 
-        List<Player> list = playerService.generatePlayerTemp(8);
+        List<Player> list = playerService.generatePlayerTemp(8,null);
         Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
         t.simulateAll(matchEngine,matchSettlementService);
         MatchNode finalNode = t.getFormat().getFinalNode();
@@ -44,7 +44,7 @@ public class TournamentTempTest {
         //多场看实力
     void manyTimestest(){
         HashMap<String,Integer> championCounts = new HashMap<>();
-        List<Player> list = playerService.generatePlayerTemp(32);
+        List<Player> list = playerService.generatePlayerTemp(32,null);
         for (int i = 0; i < 10000; i++) {
             Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
             t.simulateAll(matchEngine,matchSettlementService);

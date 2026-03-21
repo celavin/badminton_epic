@@ -2,91 +2,73 @@ package com.celavin.badmintonepic.util;
 
 import com.celavin.badmintonepic.model.entity.Player;
 import net.datafaker.Faker;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-//todo 待解耦
+import java.util.*;
+
+@Component
 public class PlayerGenerator {
-    private static final Random random = new Random();
+    private final Random random = new Random();
 
-    // 预定义不同国家的 Faker 实例，用于生成极具真实感的跨国姓名
-    private static final Faker zhFaker = new Faker(new Locale("zh", "CN")); // 中国
-    private static final Faker idFaker = new Faker(new Locale("in", "ID")); // 印尼
-    private static final Faker daFaker = new Faker(new Locale("da", "DK")); // 丹麦
-    private static final Faker jaFaker = new Faker(new Locale("ja", "JP")); // 日本
-    private static final Faker enFaker = new Faker(Locale.ENGLISH);         // 通用英文
+    // 使用 Map 替代 switch-case，更易拓展
+    private final Map<String, Faker> fakerMap = new HashMap<>();
+    // 默认支持随机生成的国家池
+    private final List<String> defaultCountries = Arrays.asList("中国", "印度尼西亚", "丹麦", "日本", "马来西亚", "中国台北", "泰国");
 
-    private static final String[] COUNTRIES = {"中国", "印度尼西亚", "丹麦", "日本", "马来西亚", "中国台北", "泰国"};
+    public PlayerGenerator() {
+        // 初始化各个国家的 Faker 实例
+        fakerMap.put("中国", new Faker(new Locale("zh", "CN")));
+        fakerMap.put("中国台北", new Faker(new Locale("zh", "TW")));
+        fakerMap.put("印度尼西亚", new Faker(new Locale("in", "ID")));
+        fakerMap.put("丹麦", new Faker(new Locale("da", "DK")));
+        fakerMap.put("日本", new Faker(new Locale("ja", "JP")));
+        // 兜底的英文 Faker
+        fakerMap.put("default", new Faker(Locale.ENGLISH));
+    }
 
-    public static List<Player> generateBatch(int count) {
+    /**
+     * 核心生成逻辑
+     * @param count 生成数量
+     * @param nationality 指定国籍（若传入 null 或空字符串，则随机生成国籍）
+     * @return 球员列表
+     */
+    public List<Player> generate(int count, String nationality) {
         List<Player> players = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            //players.add(generateSinglePlayerRandom());
-            players.add(generateSinglePlayerByCountry("中国"));
+            // 决定当前球员的国籍
+            String targetCountry = (nationality != null && !nationality.trim().isEmpty())
+                    ? nationality
+                    : defaultCountries.get(random.nextInt(defaultCountries.size()));
+
+            players.add(buildPlayer(targetCountry));
         }
         return players;
     }
-    private static Player generateSinglePlayerByCountry(String country){
+
+    private Player buildPlayer(String country) {
         Player p = new Player();
-        // 1. 基础信息
         p.setNationality(country);
-        // 2. 根据国籍生成地道的姓名！
-        p.setName(generateNameByCountry(country));
-        p.setAge(18 + random.nextInt(15)); // 18-33 岁
-        // 3. 属性生成 (1-20)
+
+        // 匹配对应国家的 Faker 生成地道姓名，匹配不到则用 default
+        Faker faker = fakerMap.getOrDefault(country, fakerMap.get("default"));
+        p.setName(faker.name().fullName());
+
+        p.setAge(18 + random.nextInt(15)); // 18-32 岁
+
+        // 属性生成
         p.setPower(generateAttribute());
         p.setTactics(generateAttribute());
         p.setSkill(generateAttribute());
         p.setSpeed(generateAttribute());
         p.setStamina(generateAttribute());
         p.setMental(generateAttribute());
-        // 4. 士气 (1-10)
-        p.setMorale(4 + random.nextInt(5)); // 初始 4-8
+
+        p.setMorale(4 + random.nextInt(5)); // 初始士气 4-8
         return p;
     }
 
-
-    private static Player generateSinglePlayerRandom() {
-        Player p = new Player();
-        // 1. 基础信息
-        String country = COUNTRIES[random.nextInt(COUNTRIES.length)];
-        p.setNationality(country);
-        // 2. 根据国籍生成地道的姓名！
-        p.setName(generateNameByCountry(country));
-        p.setAge(18 + random.nextInt(15)); // 18-33 岁
-        // 3. 属性生成 (1-20)
-        p.setPower(generateAttribute());
-        p.setTactics(generateAttribute());
-        p.setSkill(generateAttribute());
-        p.setSpeed(generateAttribute());
-        p.setStamina(generateAttribute());
-        p.setMental(generateAttribute());
-        // 4. 士气 (1-10)
-        p.setMorale(4 + random.nextInt(5)); // 初始 4-8
-        return p;
-    }
-
-    // 路由分发姓名生成逻辑
-    private static String generateNameByCountry(String country) {
-        switch (country) {
-            case "中国":
-            case "中国台北":
-                return zhFaker.name().fullName(); // 例如：张伟, 王建国
-            case "印度尼西亚":
-                return idFaker.name().fullName(); // 例如：Budi Santoso
-            case "丹麦":
-                return daFaker.name().fullName(); // 例如：Lars Nielsen
-            case "日本":
-                return jaFaker.name().fullName(); // 例如：佐藤 健
-            default:
-                return enFaker.name().fullName(); // 马来西亚/泰国等暂时使用通用英文名，后续可继续扩展 Locale
-        }
-    }
-
-    private static int generateAttribute() {
-        // 模拟 FM 的数值分布：平均值 11，标准差 3
+    private int generateAttribute() {
+        // 模拟正态分布：平均值 11，标准差 3
         int val = (int) (random.nextGaussian() * 3 + 11);
         return Math.max(1, Math.min(20, val));
     }

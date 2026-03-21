@@ -83,6 +83,7 @@ public class TournamentTest {
     @Test
     void showPlayers(){
         List<Player> list = playerService.list();
+
         for (Player player : list) {
             System.out.println(player);
         }

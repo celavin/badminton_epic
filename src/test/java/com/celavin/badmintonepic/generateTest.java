@@ -11,9 +11,11 @@ import java.util.List;
 public class generateTest {
     @Autowired
     PlayerService playerService;
-    @Test
-    void test(){
 
+
+    @Test
+    //从库里面取出
+    void test(){
         List<Player> players = playerService.list();
         int i= 1;
         for (Player player : players) {
@@ -22,10 +24,12 @@ public class generateTest {
         }
     }
     @Test
+
     void generateByCountry(){
-        List<Player> players = playerService.initWorld(32);
+        List<Player> players = playerService.generateAndSavePlayers(32,"中国");
         for (Player player : players) {
             System.out.println(player.getName());
         }
+
     }
 }

@@ -15,11 +15,8 @@ class BadmintonepicApplicationTests {
 	private PlayerService playerService;
 
 	@Test
-	void testInit() {
-		List<Player> list = playerService.list();
-		for (Player player : list) {
-			System.out.println(player);
-		}
+	void test() {
+		playerService.initWorld(32);
 	}
 
 
