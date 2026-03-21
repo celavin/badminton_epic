@@ -31,7 +31,7 @@ public class TournamentManageService {
      * @param format
      * @param players
      */
-     public TournamentEntity runTournament(String name, TournamentLevel level, TournamentFormat format, List<Player> players){
+     public TournamentEntity runAndSaveTournament(String name, TournamentLevel level, TournamentFormat format, List<Player> players){
         Tournament tournament = new Tournament(name, level, format, players);
         tournament.simulateAll(matchEngine,matchSettlementService);
         TournamentEntity tournamentEntity = new TournamentEntity(tournament);

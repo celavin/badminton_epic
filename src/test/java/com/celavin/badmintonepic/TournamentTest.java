@@ -12,6 +12,7 @@ import com.celavin.badmintonepic.service.MatchSettlementService;
 import com.celavin.badmintonepic.service.PlayerService;
 import com.celavin.badmintonepic.service.TournamentManageService;
 import com.celavin.badmintonepic.service.TournamentService;
+import com.celavin.badmintonepic.util.TournamentNameGenerator;
 import com.celavin.badmintonepic.util.TournamentPrinter;
 import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
@@ -100,10 +101,13 @@ public class TournamentTest {
     //用service执行赛事并保存
     void test(){
         List<Player> players = playerService.list();
-        TournamentEntity tournamentEntity =
-                tournamentManageService.runTournament("北京公开赛", TournamentLevel.RANKED, new KnockOutFormat(), players);
-        MatchNode finalNode = tournamentEntity.getFinalNode();
-        TournamentPrinter.show(finalNode);
+        for (int i = 0; i < 10; i++) {
+            TournamentEntity tournamentEntity =
+                    tournamentManageService.runAndSaveTournament(TournamentNameGenerator.generateRandomName(), TournamentLevel.RANKED, new KnockOutFormat(), players);
+
+        }
+        //MatchNode finalNode = tournamentEntity.getFinalNode();
+        //TournamentPrinter.show(finalNode);
 
 
     }
