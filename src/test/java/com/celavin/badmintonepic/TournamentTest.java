@@ -28,13 +28,13 @@ public class TournamentTest {
     @Test
     //单场细节
     void singleDetailedTest(){
-        int limitCount = 16;
+       /* int limitCount = 8;
 
         QueryWrapper<Player> queryWrapper = new QueryWrapper<>();
         // PostgreSQL 专属的随机排序并限制数量
         queryWrapper.last("ORDER BY RANDOM() LIMIT " + limitCount);
 
-        List<Player> lists = playerService.list(queryWrapper);
+        List<Player> list = playerService.list(queryWrapper);*/
 
         List<Player> list = playerService.list();
 
@@ -53,6 +53,14 @@ public class TournamentTest {
     //多场看实力
     void manyTimestest(){
         HashMap<String,Integer> championCounts = new HashMap<>();//todo 后续可优化,储存更多成绩
+        /*int limitCount = 8;
+
+        QueryWrapper<Player> queryWrapper = new QueryWrapper<>();
+        // PostgreSQL 专属的随机排序并限制数量
+        queryWrapper.last("ORDER BY RANDOM() LIMIT " + limitCount);
+
+        List<Player> list = playerService.list(queryWrapper);*/
+
         List<Player> list = playerService.list();
         for (int i = 0; i < 10000; i++) {
             Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
@@ -71,6 +79,13 @@ public class TournamentTest {
 
 
         System.out.println(sortedMap);
+    }
+    @Test
+    void showPlayers(){
+        List<Player> list = playerService.list();
+        for (Player player : list) {
+            System.out.println(player);
+        }
     }
 
 

@@ -23,23 +23,18 @@ public class PlayerGenerator {
     public static List<Player> generateBatch(int count) {
         List<Player> players = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            players.add(generateSinglePlayer());
+            //players.add(generateSinglePlayerRandom());
+            players.add(generateSinglePlayerByCountry("中国"));
         }
         return players;
     }
-
-    private static Player generateSinglePlayer() {
+    private static Player generateSinglePlayerByCountry(String country){
         Player p = new Player();
-
         // 1. 基础信息
-        String country = COUNTRIES[random.nextInt(COUNTRIES.length)];
         p.setNationality(country);
-
         // 2. 根据国籍生成地道的姓名！
         p.setName(generateNameByCountry(country));
-
         p.setAge(18 + random.nextInt(15)); // 18-33 岁
-
         // 3. 属性生成 (1-20)
         p.setPower(generateAttribute());
         p.setTactics(generateAttribute());
@@ -47,10 +42,29 @@ public class PlayerGenerator {
         p.setSpeed(generateAttribute());
         p.setStamina(generateAttribute());
         p.setMental(generateAttribute());
-
         // 4. 士气 (1-10)
         p.setMorale(4 + random.nextInt(5)); // 初始 4-8
+        return p;
+    }
 
+
+    private static Player generateSinglePlayerRandom() {
+        Player p = new Player();
+        // 1. 基础信息
+        String country = COUNTRIES[random.nextInt(COUNTRIES.length)];
+        p.setNationality(country);
+        // 2. 根据国籍生成地道的姓名！
+        p.setName(generateNameByCountry(country));
+        p.setAge(18 + random.nextInt(15)); // 18-33 岁
+        // 3. 属性生成 (1-20)
+        p.setPower(generateAttribute());
+        p.setTactics(generateAttribute());
+        p.setSkill(generateAttribute());
+        p.setSpeed(generateAttribute());
+        p.setStamina(generateAttribute());
+        p.setMental(generateAttribute());
+        // 4. 士气 (1-10)
+        p.setMorale(4 + random.nextInt(5)); // 初始 4-8
         return p;
     }
 

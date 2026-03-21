@@ -13,10 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
+import java.util.*;
+import java.util.stream.Collectors;
+//不从数据库取数据,临时生成
 @SpringBootTest
 public class TournamentTempTest {
     @Autowired
@@ -45,14 +44,25 @@ public class TournamentTempTest {
         //多场看实力
     void manyTimestest(){
         HashMap<String,Integer> championCounts = new HashMap<>();
-        List<Player> list = playerService.generatePlayerTemp(8);
+        List<Player> list = playerService.generatePlayerTemp(32);
         for (int i = 0; i < 10000; i++) {
             Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
             t.simulateAll(matchEngine,matchSettlementService);
             championCounts.put(t.getChampion().getName(),championCounts.getOrDefault(t.getChampion().getName(),0)+1);
         }
 
-        System.out.println(championCounts);
+        HashMap<String,Integer> sortedMap =
+                championCounts.entrySet()
+                        .stream()
+                        .sorted(Map.Entry.<String,Integer>comparingByValue().reversed())
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (e1,e2)->e1, LinkedHashMap::new
+                        ));
+
+
+        System.out.println(sortedMap);
     }
 
 
