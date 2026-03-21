@@ -6,6 +6,7 @@ import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.engine.tournament.format.TournamentFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.entity.Player;
+import com.celavin.badmintonepic.model.entity.TournamentEntity;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,14 @@ public class TournamentManageService {
      * @param format
      * @param players
      */
-    void runTournament(String name, TournamentLevel level, TournamentFormat format, List<Player> players){
+     public TournamentEntity runTournament(String name, TournamentLevel level, TournamentFormat format, List<Player> players){
         Tournament tournament = new Tournament(name, level, format, players);
         tournament.simulateAll(matchEngine,matchSettlementService);
-
+        TournamentEntity tournamentEntity = new TournamentEntity(tournament);
+        tournamentService.save(tournamentEntity);
+        return tournamentEntity;
     }
+
 
 
 }

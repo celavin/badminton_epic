@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 
@@ -27,6 +28,17 @@ public class TournamentEntity {
     private Long championId;
     // 游戏内举办日期
     private LocalDate date;
+
+
+    public TournamentEntity() {
+
+    }
+    public TournamentEntity(Tournament t){
+        name=t.getTournamentName();
+        level=t.getLevel();
+        finalNode=t.getFormat().getFinalNode();
+        championId=t.getChampion().getId();
+    }
 
     // ---------- Getters and Setters ----------
 

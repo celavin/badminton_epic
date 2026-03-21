@@ -7,9 +7,13 @@ import com.celavin.badmintonepic.engine.tournament.format.KnockOutFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 import com.celavin.badmintonepic.model.entity.Player;
+import com.celavin.badmintonepic.model.entity.TournamentEntity;
 import com.celavin.badmintonepic.service.MatchSettlementService;
 import com.celavin.badmintonepic.service.PlayerService;
+import com.celavin.badmintonepic.service.TournamentManageService;
+import com.celavin.badmintonepic.service.TournamentService;
 import com.celavin.badmintonepic.util.TournamentPrinter;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +29,10 @@ public class TournamentTest {
     MatchEngine matchEngine;
     @Autowired
     MatchSettlementService matchSettlementService;
+    @Autowired
+    TournamentService tournamentService;
+    @Autowired
+    TournamentManageService tournamentManageService;
     @Test
     //单场细节
     void singleDetailedTest(){
@@ -87,6 +95,17 @@ public class TournamentTest {
         for (Player player : list) {
             System.out.println(player);
         }
+    }
+    @Test
+    //用service执行赛事并保存
+    void test(){
+        List<Player> players = playerService.list();
+        TournamentEntity tournamentEntity =
+                tournamentManageService.runTournament("北京公开赛", TournamentLevel.RANKED, new KnockOutFormat(), players);
+        MatchNode finalNode = tournamentEntity.getFinalNode();
+        TournamentPrinter.show(finalNode);
+
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.celavin.badmintonepic.model.dto;
 
 import com.celavin.badmintonepic.model.entity.Player;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 //重修改用树结构
 public class MatchNode {
 
@@ -13,8 +14,11 @@ public class MatchNode {
     private Player loser;//需要吗?
     private RawMatchResult result;//结束后填充;
 
+
     private MatchNode nextMatch;  // 胜者去哪：父节点（下一轮）
+
     private MatchNode prevMatch1; // p1 怎么来的：左子节点（前置比赛1）
+
     private MatchNode prevMatch2;// p2 怎么来的：右子节点（前置比赛2）
 
 
