@@ -26,9 +26,11 @@ public class TournamentEntity {
     @TableField(typeHandler = PgJsonbTypeHandler.class)
     private MatchNode finalNode;
     // 只存储外键 ID，不嵌套庞大的 Player 对象
+    private String championName;
     private Long championId;
     // 游戏内举办日期
     private LocalDate date;
+    //todo 亚军也需要存储
 
 
     public TournamentEntity() {
@@ -38,6 +40,7 @@ public class TournamentEntity {
         name=t.getTournamentName();
         level=t.getLevel();
         finalNode=t.getFormat().getFinalNode();
+        championName=t.getChampion().getName();
         championId=t.getChampion().getId();
     }
 

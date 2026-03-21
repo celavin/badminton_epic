@@ -57,6 +57,7 @@ public class TournamentNameGenerator {
         // 中文名称拼接不需要空格
         return prefix + suffix;
     }
+    //todo 目前没有赛事后缀与级别绑定的逻辑;
 
     /**
      * 预留方法：如果以后你想根据赛事级别(Level)来固定后缀，可以在这里加逻辑

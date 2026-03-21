@@ -111,6 +111,16 @@ public class TournamentTest {
 
 
     }
+    @Test
+    //从表里取出finalnode,测试
+    //todo 有问题,报错,咋回事呢
+    void finalnodetest(){
+        List<TournamentEntity> list = tournamentService.list();
+        TournamentEntity t = list.get(0);
+        MatchNode finalNode = t.getFinalNode();
+        TournamentPrinter.show(finalNode);
+
+    }
 
 
 
