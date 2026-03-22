@@ -1,8 +1,13 @@
 package com.celavin.badmintonepic.model.dto;
 
 import com.celavin.badmintonepic.model.entity.Player;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 //重修改用树结构
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MatchNode {
 
     private String matchId;
@@ -14,11 +19,11 @@ public class MatchNode {
     private Player loser;//需要吗?
     private RawMatchResult result;//结束后填充;
 
-    @JsonIgnore
+    @JsonBackReference
     private MatchNode nextMatch;  // 胜者去哪：父节点（下一轮）
-
+    @JsonManagedReference
     private MatchNode prevMatch1; // p1 怎么来的：左子节点（前置比赛1）
-
+    @JsonManagedReference
     private MatchNode prevMatch2;// p2 怎么来的：右子节点（前置比赛2）
 
 
@@ -34,6 +39,7 @@ public class MatchNode {
     }
 
     // 核心状态判断：这场比赛打完了吗？
+    @JsonIgnore
     public boolean isPlayed() {
         return winner != null;
     }

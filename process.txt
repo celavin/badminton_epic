@@ -3,6 +3,14 @@
 当前进度:赛事调度
 3.22
 存进表里再取出就会报错,这是为啥?????????????
+原因1.isxxxx()的方法,序列化的时候会自动增加字段,反序列化时就会报错
+解决:添加一个jsonignore的注解或者类上加@JsonIgnoreProperties(ignoreUnknown = true)即可
+2.循环引用导致栈溢出,树结构如果同时储存父节点和子节点,就会报错
+解决:jsonignore或者
+@JsonBackReference(不序列化的那个) @JsonManagedReference(正常序列化)
+第二种更好,反序列化时自动关联
+
+注意:jackson反序列化时,一定需要一个无参构造
 
 3.21
 idea:以后先小组赛后淘汰赛的实现思路:先写一个小组赛,再写一个赛制把两个结合调用
