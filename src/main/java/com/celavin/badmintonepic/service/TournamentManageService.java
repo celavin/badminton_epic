@@ -39,6 +39,21 @@ public class TournamentManageService {
         return tournamentEntity;
     }
 
+    /**
+     * 执行一个赛事但不保存
+     * @param name
+     * @param level
+     * @param format
+     * @param players
+     * @return
+     */
+    public TournamentEntity runTournament(String name, TournamentLevel level, TournamentFormat format, List<Player> players){
+        Tournament tournament = new Tournament(name, level, format, players);
+        tournament.simulateAll(matchEngine,matchSettlementService);
+
+        return new TournamentEntity(tournament);
+    }
+
 
 
 }

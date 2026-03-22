@@ -36,6 +36,7 @@ public class TournamentEntity {
     public TournamentEntity() {
 
     }
+
     public TournamentEntity(Tournament t){
         name=t.getTournamentName();
         level=t.getLevel();
@@ -44,6 +45,10 @@ public class TournamentEntity {
         championId=t.getChampion().getId();
     }
 
+    @Override
+    public String toString() {
+        return name+"("+level+")"+" "+"冠军:"+championName;
+    }
     // ---------- Getters and Setters ----------
 
     public Long getId() {
@@ -92,5 +97,13 @@ public class TournamentEntity {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getChampionName() {
+        return championName;
+    }
+
+    public void setChampionName(String championName) {
+        this.championName = championName;
     }
 }

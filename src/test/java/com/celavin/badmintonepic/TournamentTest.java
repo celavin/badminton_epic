@@ -99,17 +99,27 @@ public class TournamentTest {
     }
     @Test
     //用service执行赛事并保存
-    void test(){
+    void test() {
         List<Player> players = playerService.list();
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 1; i++) {
+
             TournamentEntity tournamentEntity =
-                    tournamentManageService.runAndSaveTournament(TournamentNameGenerator.generateRandomName(), TournamentLevel.RANKED, new KnockOutFormat(), players);
+                    tournamentManageService.runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
+                            TournamentLevel.MAJOR, new KnockOutFormat(), players);
+        }*/
+        TournamentEntity tournamentEntity =
+                tournamentManageService.runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
+                        TournamentLevel.ELITE, new KnockOutFormat(), players);
+        MatchNode finalNode = tournamentEntity.getFinalNode();
 
+        TournamentPrinter.show(finalNode);
+    }
+    @Test
+    void watch(){
+        List<TournamentEntity> list = tournamentService.list();
+        for (TournamentEntity tournamentEntity : list) {
+            System.out.println(tournamentEntity);
         }
-        //MatchNode finalNode = tournamentEntity.getFinalNode();
-        //TournamentPrinter.show(finalNode);
-
-
     }
     @Test
     //从表里取出finalnode,测试
