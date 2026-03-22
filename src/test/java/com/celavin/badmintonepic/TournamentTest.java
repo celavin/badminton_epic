@@ -5,6 +5,7 @@ import com.celavin.badmintonepic.engine.simulator.MatchEngine;
 import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.engine.tournament.format.KnockOutFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
+import com.celavin.badmintonepic.model.dto.ChampionStatsDTO;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.model.entity.TournamentEntity;
@@ -90,14 +91,6 @@ public class TournamentTest {
         System.out.println(sortedMap);
     }
     @Test
-    void showPlayers(){
-        List<Player> list = playerService.list();
-
-        for (Player player : list) {
-            System.out.println(player);
-        }
-    }
-    @Test
     //用service执行赛事并保存
     void test() {
         List<Player> players = playerService.list();
@@ -121,15 +114,22 @@ public class TournamentTest {
 
     }
     @Test
-    void watch(){
+    //查冠军数
+    void watchchampion(){
+        List<ChampionStatsDTO> championTitleStats = tournamentService.getChampionTitleStats();
+        for (ChampionStatsDTO championTitleStat : championTitleStats) {
+            System.out.println(championTitleStat);
+        }
+    }
+    @Test
+    void watchAllTournaments(){
         List<TournamentEntity> list = tournamentService.list();
         for (TournamentEntity tournamentEntity : list) {
             System.out.println(tournamentEntity);
         }
     }
     @Test
-    //从表里取出finalnode,测试
-    //todo 有问题,报错,咋回事呢
+    //从表里取出finalnode
     void finalnodetest(){
         List<TournamentEntity> list = tournamentService.list();
         TournamentEntity t = list.get(0);

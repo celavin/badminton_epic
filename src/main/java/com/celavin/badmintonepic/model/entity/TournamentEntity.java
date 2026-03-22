@@ -22,7 +22,7 @@ public class TournamentEntity {
     private String name;
     // 赛事级别（MyBatis 默认会将 Enum 映射为 String 存入数据库）
     private TournamentLevel level;
-    // 复杂的对阵图树节点，交由 JacksonTypeHandler 序列化为 JSON 字符串存入 JSONB 字段
+
     @TableField(typeHandler = PgJsonbTypeHandler.class)
     private MatchNode finalNode;
     // 只存储外键 ID，不嵌套庞大的 Player 对象
