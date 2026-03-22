@@ -31,6 +31,13 @@ class BadmintonepicApplicationTests {
 		playerService.generateAndSavePlayers(8,"英格兰");
 
 	}
+	@Test
+	//清空赛事数据todo 加一个重置计数器的语句mapper里面
+	void test2() {
+		tournamentService.remove(null);
+
+
+	}
 
 
 }

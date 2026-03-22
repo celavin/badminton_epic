@@ -101,18 +101,24 @@ public class TournamentTest {
     //用service执行赛事并保存
     void test() {
         List<Player> players = playerService.list();
-        /*for (int i = 0; i < 1; i++) {
+        /*for (int i = 0; i < 10; i++) {
 
             TournamentEntity tournamentEntity =
                     tournamentManageService.runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
-                            TournamentLevel.MAJOR, new KnockOutFormat(), players);
+                            TournamentLevel.RANKED, new KnockOutFormat(), players);
         }*/
         TournamentEntity tournamentEntity =
                 tournamentManageService.runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
-                        TournamentLevel.ELITE, new KnockOutFormat(), players);
+                        TournamentLevel.MAJOR, new KnockOutFormat(), players);
         MatchNode finalNode = tournamentEntity.getFinalNode();
 
         TournamentPrinter.show(finalNode);
+    }
+    @Test
+    void simulateYear(){
+        List<Player> players = playerService.list();
+        tournamentManageService.simulateWholeYear(players);
+
     }
     @Test
     void watch(){

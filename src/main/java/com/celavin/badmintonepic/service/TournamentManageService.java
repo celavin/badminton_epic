@@ -3,10 +3,12 @@ package com.celavin.badmintonepic.service;
 import com.celavin.badmintonepic.engine.simulator.GameEngine;
 import com.celavin.badmintonepic.engine.simulator.MatchEngine;
 import com.celavin.badmintonepic.engine.tournament.Tournament;
+import com.celavin.badmintonepic.engine.tournament.format.KnockOutFormat;
 import com.celavin.badmintonepic.engine.tournament.format.TournamentFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.model.entity.TournamentEntity;
+import com.celavin.badmintonepic.util.TournamentNameGenerator;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +55,21 @@ public class TournamentManageService {
 
         return new TournamentEntity(tournament);
     }
+    public void simulateWholeYear(List<Player> players){
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 4; j++) {
+                runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
+                        TournamentLevel.CHALLENGE, new KnockOutFormat(), players);
+            }
+            runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
+                    TournamentLevel.ELITE, new KnockOutFormat(), players);
+            runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
+                    TournamentLevel.MAJOR, new KnockOutFormat(), players);
 
+        }
+
+
+    }
 
 
 }
