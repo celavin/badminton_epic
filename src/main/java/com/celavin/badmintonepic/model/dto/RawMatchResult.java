@@ -42,7 +42,7 @@ public class RawMatchResult {
         result.remark = "轮空晋级 (Bye)";
         result.scores = new java.util.ArrayList<>(); // 补充：初始化为空列表，防止前端或转换 MatchResult 时遍历报错
         result.bestOf = 0;   // 轮空不需要打
-        result.p1Games = 0;//todo 大比分成绩待封装成类
+        result.p1Games = 0;
         result.p2Games = 0;
         return result;
     }

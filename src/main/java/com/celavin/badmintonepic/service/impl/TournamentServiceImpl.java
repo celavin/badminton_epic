@@ -16,4 +16,9 @@ public class TournamentServiceImpl extends ServiceImpl<TournamentMapper,Tourname
     public List<ChampionStatsDTO> getChampionTitleStats() {
         return baseMapper.getChampionTitleStats();
     }
+
+    @Override
+    public void clearAllTournaments() {
+        baseMapper.clearAll();
+    }
 }

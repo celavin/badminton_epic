@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.celavin.badmintonepic.model.dto.ChampionStatsDTO;
 import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.model.entity.TournamentEntity;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -19,4 +20,6 @@ public interface TournamentMapper  extends BaseMapper<TournamentEntity> {
             "Group by champion_name\n" +
             "order by major desc,elite desc,challenge desc;")
     List<ChampionStatsDTO> getChampionTitleStats();
+    @Delete("truncate table tournaments restart identity;")
+    void clearAll();
 }

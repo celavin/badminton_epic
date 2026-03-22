@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.celavin.badmintonepic.model.entity.Player;
 
 import java.util.List;
-//todo 待解耦
+
 public interface PlayerService extends IService<Player> {
     // 1. 初始化世界：清空数据库并随机生成一批球员
     List<Player> initWorld(int num);
