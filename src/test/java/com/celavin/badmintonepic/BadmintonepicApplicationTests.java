@@ -32,7 +32,7 @@ class BadmintonepicApplicationTests {
 
 	}
 	@Test
-	//清空赛事数据todo 加一个重置计数器的语句mapper里面
+	//清空赛事数据
 	void test2() {
 		tournamentService.clearAllTournaments();
 

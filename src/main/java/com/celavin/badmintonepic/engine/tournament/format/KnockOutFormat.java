@@ -126,6 +126,12 @@ public class KnockOutFormat implements TournamentFormat {
     public Player getChampion() {
         return rootMatch.getWinner();
     }
+
+    @Override
+    public Player getRunnerUp() {
+        return rootMatch.getLoser();
+    }
+
     //todo 先不管 转移到tournamentresult类实现渲染??
     @Override
     public String generateBracket() {

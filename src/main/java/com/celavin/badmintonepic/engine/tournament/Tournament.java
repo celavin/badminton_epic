@@ -21,6 +21,7 @@ public class Tournament {
     private int bestOf=5;//todo 默认值找个地方
     private boolean isFinished;
     private Player champion;
+    private Player runnerUp;
 
 
     //初始化
@@ -56,12 +57,12 @@ public class Tournament {
             simulateNextStep(matchEngine,matchSettlementService);
         }
     }
-    public Player getChampion() {
-        return champion;
-    }
+    public Player getChampion() {return champion;}
+    public Player getRunnerUp() {return runnerUp;}
     public void archive(){
         isFinished=true;
         champion=format.getChampion();
+        runnerUp=format.getRunnerUp();
 
     }
 

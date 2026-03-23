@@ -17,7 +17,7 @@ public interface TournamentFormat {
     // 4. 赛事状态
     boolean isCompleted();
     Player getChampion();
-
+    Player getRunnerUp();
     // (UI渲染相关的方法可以先保留，或者后续移到专门的 Printer 类中)
     String generateBracket();
     MatchNode getFinalNode();

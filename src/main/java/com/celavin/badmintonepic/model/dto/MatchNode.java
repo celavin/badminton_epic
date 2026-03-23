@@ -102,7 +102,7 @@ public class MatchNode {
     }
 
     public Player getLoser() {
-        return loser;
+        return winner.equals(p1)?p2:p1;
     }
 
     public void setLoser(Player loser) {

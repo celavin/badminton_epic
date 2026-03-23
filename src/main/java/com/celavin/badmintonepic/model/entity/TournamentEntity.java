@@ -28,6 +28,8 @@ public class TournamentEntity {
     // 只存储外键 ID，不嵌套庞大的 Player 对象
     private String championName;
     private Long championId;
+    private String runnerUpName;
+    private Long runnerUpId;
     // 游戏内举办日期
     private LocalDate date;
     //todo 亚军也需要存储
@@ -43,11 +45,14 @@ public class TournamentEntity {
         finalNode=t.getFormat().getFinalNode();
         championName=t.getChampion().getName();
         championId=t.getChampion().getId();
+        runnerUpName=t.getRunnerUp().getName();
+        runnerUpId=t.getRunnerUp().getId();
+
     }
 
     @Override
     public String toString() {
-        return name+"("+level+")"+" "+"冠军:"+championName;
+        return name+"("+level+")"+" "+"冠军:"+championName+" 亚军:"+runnerUpName;
     }
     // ---------- Getters and Setters ----------
 
