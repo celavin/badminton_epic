@@ -129,6 +129,14 @@ public class TournamentTest {
         }
     }
     @Test
+    void watchNewTournaments(){
+        List<TournamentEntity> list = tournamentService.getLast12Tournaments();
+        for (TournamentEntity tournamentEntity : list) {
+            System.out.println(tournamentEntity);
+        }
+    }
+
+    @Test
     //从表里取出finalnode
     void finalnodetest(){
         List<TournamentEntity> list = tournamentService.list();

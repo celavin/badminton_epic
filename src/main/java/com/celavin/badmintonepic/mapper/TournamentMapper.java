@@ -22,4 +22,10 @@ public interface TournamentMapper  extends BaseMapper<TournamentEntity> {
     List<ChampionStatsDTO> getChampionTitleStats();
     @Delete("truncate table tournaments restart identity;")
     void clearAll();
+
+    @Select("select*\n"+
+            "from tournaments\n"+
+            "order by id desc\n"+
+            "limit 12")
+    List<TournamentEntity> getLast12Tournaments();
 }

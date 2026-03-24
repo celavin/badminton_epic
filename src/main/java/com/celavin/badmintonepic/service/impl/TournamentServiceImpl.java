@@ -21,4 +21,9 @@ public class TournamentServiceImpl extends ServiceImpl<TournamentMapper,Tourname
     public void clearAllTournaments() {
         baseMapper.clearAll();
     }
+
+    @Override
+    public List<TournamentEntity> getLast12Tournaments() {
+        return baseMapper.getLast12Tournaments();
+    }
 }

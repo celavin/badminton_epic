@@ -14,4 +14,6 @@ public interface TournamentService extends IService<TournamentEntity> {
 
     //清空所有赛事并重置计数器
     void clearAllTournaments();
+    //查看最新十二场赛事
+    List<TournamentEntity> getLast12Tournaments();
 }

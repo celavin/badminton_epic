@@ -52,7 +52,8 @@ public class TournamentEntity {
 
     @Override
     public String toString() {
-        return name+"("+level+")"+" "+"冠军:"+championName+" 亚军:"+runnerUpName;
+        return String.format("名称: %-15s | 等级: %-5s | 冠军: %-15s | 亚军: %-15s",
+                name, level, championName, runnerUpName);
     }
     // ---------- Getters and Setters ----------
 

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 public class GameStateServiceImpl extends ServiceImpl<GameStateMapper, GameState> implements GameStateService {
     @Override
     public void advanceOneDay() {
-        GameState gameState = list().get(0);
+        GameState gameState = getById(1);
         gameState.advanceOneDay();
-        save(gameState);
+        saveOrUpdate(gameState);
     }
 }

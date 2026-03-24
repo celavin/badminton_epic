@@ -14,10 +14,7 @@ public class TimeTest {
     GameStateService gameStateService;
     @Test
     void test(){
-        GameState gameState = gameStateService.getById(1);
-        gameState.advanceOneDay();
-        gameStateService.saveOrUpdate(gameState);
-        System.out.println(gameStateService.getById(1));
+        gameStateService.advanceOneDay();
     }
     @Test
     void test2(){
