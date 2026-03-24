@@ -133,6 +133,7 @@ public class TournamentTest {
     void finalnodetest(){
         List<TournamentEntity> list = tournamentService.list();
         TournamentEntity t = list.get(0);
+        System.out.println(t.getName()+" "+t.getLevel());
         MatchNode finalNode = t.getFinalNode();
         TournamentPrinter.show(finalNode);
 

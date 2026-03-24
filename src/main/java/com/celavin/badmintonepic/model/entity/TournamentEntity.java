@@ -32,7 +32,7 @@ public class TournamentEntity {
     private Long runnerUpId;
     // 游戏内举办日期
     private LocalDate date;
-    //todo 亚军也需要存储
+
 
 
     public TournamentEntity() {
