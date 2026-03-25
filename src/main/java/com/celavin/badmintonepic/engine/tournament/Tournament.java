@@ -1,5 +1,6 @@
 package com.celavin.badmintonepic.engine.tournament;
 
+import com.celavin.badmintonepic.context.GameTimeContext;
 import com.celavin.badmintonepic.engine.simulator.MatchEngine;
 import com.celavin.badmintonepic.engine.tournament.format.TournamentFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
@@ -23,6 +24,9 @@ public class Tournament {
     private Player champion;
     private Player runnerUp;
 
+    private int year;
+    private int month;
+
 
     //初始化
     public Tournament(String name, TournamentLevel level, TournamentFormat format, List<Player> playerList){
@@ -31,6 +35,8 @@ public class Tournament {
         this.format = format;
         this.playerList = playerList;
         this.format.initBracket(playerList);
+        year= GameTimeContext.getCurrentYear();
+        month= GameTimeContext.getCurrentMonth();
 
     }
 
@@ -125,5 +131,25 @@ public class Tournament {
 
     public void setChampion(Player champion) {
         this.champion = champion;
+    }
+
+    public void setRunnerUp(Player runnerUp) {
+        this.runnerUp = runnerUp;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
     }
 }

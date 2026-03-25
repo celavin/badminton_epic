@@ -32,6 +32,13 @@ public class GameState {
             }
         }
     }
+    public void advanceOneMonth(){
+        month++;
+        if(month>12){
+            month=1;
+            year++;
+        }
+    }
 
     @Override
     public String toString() {
@@ -45,4 +52,43 @@ public class GameState {
         this.day=day;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getWeek() {
+        return week;
+    }
+
+    public void setWeek(int week) {
+        this.week = week;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
 }

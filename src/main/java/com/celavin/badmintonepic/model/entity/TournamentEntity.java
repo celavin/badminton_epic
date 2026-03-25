@@ -31,8 +31,8 @@ public class TournamentEntity {
     private String runnerUpName;
     private Long runnerUpId;
     // 游戏内举办日期
-    private LocalDate date;
-
+    private int year;
+    private int month;
 
 
     public TournamentEntity() {
@@ -47,6 +47,9 @@ public class TournamentEntity {
         championId=t.getChampion().getId();
         runnerUpName=t.getRunnerUp().getName();
         runnerUpId=t.getRunnerUp().getId();
+        year=t.getYear();
+        month=t.getMonth();
+        //todo 修改表的结构
 
     }
 
@@ -97,12 +100,36 @@ public class TournamentEntity {
         this.championId = championId;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getRunnerUpName() {
+        return runnerUpName;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setRunnerUpName(String runnerUpName) {
+        this.runnerUpName = runnerUpName;
+    }
+
+    public Long getRunnerUpId() {
+        return runnerUpId;
+    }
+
+    public void setRunnerUpId(Long runnerUpId) {
+        this.runnerUpId = runnerUpId;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
     }
 
     public String getChampionName() {

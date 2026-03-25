@@ -14,10 +14,7 @@ public class TimeTest {
     GameStateService gameStateService;
     @Test
     void test(){
-        gameStateService.advanceOneDay();
-    }
-    @Test
-    void test2(){
 
     }
+
 }

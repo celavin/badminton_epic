@@ -25,6 +25,8 @@ public class TournamentManageService {
     MatchSettlementService matchSettlementService;
     @Autowired
     TournamentService tournamentService;
+    @Autowired
+    GameStateService gameStateService;
 
     /**
      * 执行一个赛事并保存
@@ -56,16 +58,19 @@ public class TournamentManageService {
         return new TournamentEntity(tournament);
     }
     public void simulateWholeYear(List<Player> players){
+        //todo 需要一个推进一个月的方法
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {
                 runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
                         TournamentLevel.CHALLENGE, new KnockOutFormat(), players);
+                gameStateService.advanceOneMonth();
             }
             runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
                     TournamentLevel.ELITE, new KnockOutFormat(), players);
+            gameStateService.advanceOneMonth();
             runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
                     TournamentLevel.MAJOR, new KnockOutFormat(), players);
-
+            gameStateService.advanceOneMonth();
         }
 
 

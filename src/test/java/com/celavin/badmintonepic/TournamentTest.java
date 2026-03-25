@@ -1,18 +1,17 @@
 package com.celavin.badmintonepic;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.celavin.badmintonepic.context.GameTimeContext;
 import com.celavin.badmintonepic.engine.simulator.MatchEngine;
 import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.engine.tournament.format.KnockOutFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.dto.ChampionStatsDTO;
 import com.celavin.badmintonepic.model.dto.MatchNode;
+import com.celavin.badmintonepic.model.entity.GameState;
 import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.model.entity.TournamentEntity;
-import com.celavin.badmintonepic.service.MatchSettlementService;
-import com.celavin.badmintonepic.service.PlayerService;
-import com.celavin.badmintonepic.service.TournamentManageService;
-import com.celavin.badmintonepic.service.TournamentService;
+import com.celavin.badmintonepic.service.*;
 import com.celavin.badmintonepic.util.TournamentNameGenerator;
 import com.celavin.badmintonepic.util.TournamentPrinter;
 import org.checkerframework.checker.units.qual.A;
@@ -35,6 +34,8 @@ public class TournamentTest {
     TournamentService tournamentService;
     @Autowired
     TournamentManageService tournamentManageService;
+    @Autowired
+    GameStateService gameStateService;
     @Test
     //单场细节
     void singleDetailedTest(){
@@ -109,6 +110,7 @@ public class TournamentTest {
     }
     @Test
     void simulateYear(){
+        gameStateService.loadGame();
         List<Player> players = playerService.list();
         tournamentManageService.simulateWholeYear(players);
 
