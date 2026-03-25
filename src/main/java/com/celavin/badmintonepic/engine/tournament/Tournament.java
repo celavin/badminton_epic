@@ -40,29 +40,6 @@ public class Tournament {
 
     }
 
-    //核心方法,模拟一轮,至于一轮是包含什么,在format类里的方法规定
-    //字段有点多余
-    public void simulateNextStep (MatchEngine matchEngine, MatchSettlementService matchSettlementService){
-        if(format.isCompleted()) return;
-        List<MatchNode> playableMatches = format.getPlayableMatches();
-        if (playableMatches.isEmpty()) return;
-
-        for (MatchNode matchNode : playableMatches) {
-            RawMatchResult result = matchEngine.simulate(matchNode, bestOf);
-            //todo 这里找个地方变成matchresult类 传进第三层,等第三层完成先
-            format.submitMatchResult(matchNode,result);
-        }
-        //完结后调整boolean并生成dto
-        if(format.isCompleted()) {
-            archive();
-        }
-    }
-    //一次性模拟完
-    public void simulateAll(MatchEngine matchEngine, MatchSettlementService matchSettlementService) {
-        while(!isFinished){
-            simulateNextStep(matchEngine,matchSettlementService);
-        }
-    }
     public Player getChampion() {return champion;}
     public Player getRunnerUp() {return runnerUp;}
     public void archive(){

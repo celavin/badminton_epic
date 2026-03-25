@@ -5,6 +5,7 @@ import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.entity.Player;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,7 +13,7 @@ public class MatchResult {
     // 1. 核心结果
     private Player winner;
     private Player loser;
-    private List<String> scores; // ["21-15", "18-21", "21-19"]
+    private List<GameScore> scores; // ["21-15", "18-21", "21-19"]
 
     // 2. 比赛上下文 (Context)
     private TournamentLevel level;   // 定义的枚举
@@ -20,11 +21,29 @@ public class MatchResult {
     private String roundName;        // 轮次，如 "1/4决赛"
     private int bestOf;              // 赛制：3 或 5
 
-    // 3. 统计数据 (用于结算或展示)
+    // 构造函数：只接收必要的上下文基础数据
+    public MatchResult(MatchNode matchNode, String tournamentName, TournamentLevel level) {
+        // 1. 从 Node 中提取结算必须的核心数据
+        this.winner = matchNode.getWinner();
+        this.loser = matchNode.getLoser();
+        this.roundName = matchNode.getRoundName();
+        this.level = level;
 
+        // 2. 外部传入的上下文
+        this.tournamentName = tournamentName;
 
-    // --- 构造函数 (替代 Builder) ---
-    public MatchResult(Player winner, Player loser, List<String> scores,
+        // 3. 防御性提取 RawMatchResult 中的数据
+        if (matchNode.getResult() != null) {
+            this.scores = matchNode.getResult().getScores();
+            this.bestOf = matchNode.getResult().getBestOf();
+        } else {
+            // 处理轮空等特殊情况的兜底
+            this.scores = new ArrayList<>();
+            this.bestOf = 0;
+        }
+    }
+
+    public MatchResult(Player winner, Player loser, List<GameScore> scores,
                        TournamentLevel level, String tournamentName,
                        String roundName, int bestOf) {
         this.winner = winner;
@@ -36,7 +55,6 @@ public class MatchResult {
         this.bestOf = bestOf;
 
     }
-
 
 
 
@@ -60,13 +78,7 @@ public class MatchResult {
         this.loser = loser;
     }
 
-    public List<String> getScores() {
-        return scores;
-    }
 
-    public void setScores(List<String> scores) {
-        this.scores = scores;
-    }
 
     public TournamentLevel getLevel() {
         return level;
@@ -100,5 +112,11 @@ public class MatchResult {
         this.bestOf = bestOf;
     }
 
+    public List<GameScore> getScores() {
+        return scores;
+    }
 
+    public void setScores(List<GameScore> scores) {
+        this.scores = scores;
+    }
 }

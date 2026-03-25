@@ -43,7 +43,7 @@ public class TournamentTest {
         List<Player> list = playerService.list();
 
         Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
-        t.simulateAll(matchEngine,matchSettlementService);
+        tournamentManageService.simulateAll(t);
         MatchNode finalNode = t.getFormat().getFinalNode();
         List<MatchNode> allMatches = t.getFormat().getAllMatches();
         Collections.reverse(allMatches);
@@ -65,7 +65,7 @@ public class TournamentTest {
         List<Player> list = playerService.list();
         for (int i = 0; i < 10000; i++) {
             Tournament t = new Tournament("Beijing", TournamentLevel.RANKED,new KnockOutFormat(),list);
-            t.simulateAll(matchEngine,matchSettlementService);
+           tournamentManageService.simulateAll(t);
             championCounts.put(t.getChampion().getName(),championCounts.getOrDefault(t.getChampion().getName(),0)+1);
         }
         HashMap<String,Integer> sortedMap =
