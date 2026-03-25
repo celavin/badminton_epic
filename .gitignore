@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# 忽略所有 application 配置文件
+**/src/main/resources/application.yaml
+**/src/main/resources/application.properties
+
+# 或者忽略特定环境的配置
+**/src/main/resources/application-prod.yaml
