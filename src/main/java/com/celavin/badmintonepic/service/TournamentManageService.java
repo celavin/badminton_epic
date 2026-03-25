@@ -14,11 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-//todo 完善赛事管理servcie
+
+
 @Service
 public class TournamentManageService {
-    @Autowired
-    GameEngine gameEngine;
     @Autowired
     MatchEngine matchEngine;
     @Autowired
@@ -58,7 +57,7 @@ public class TournamentManageService {
         return new TournamentEntity(tournament);
     }
     public void simulateWholeYear(List<Player> players){
-        //todo 需要一个推进一个月的方法
+
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {
                 runAndSaveTournament(TournamentNameGenerator.generateRandomName(),

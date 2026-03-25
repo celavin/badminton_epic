@@ -19,7 +19,7 @@ public class Tournament {
     private TournamentFormat format;
     private int playerNums;
     private List<Player> playerList;
-    private int bestOf=5;//todo 默认值找个地方
+    private int bestOf=5;//默认为5 可优化
     private boolean isFinished;
     private Player champion;
     private Player runnerUp;

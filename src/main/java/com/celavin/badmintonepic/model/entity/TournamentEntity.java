@@ -35,9 +35,7 @@ public class TournamentEntity {
     private int month;
 
 
-    public TournamentEntity() {
-
-    }
+    public TournamentEntity() {}
 
     public TournamentEntity(Tournament t){
         name=t.getTournamentName();
@@ -49,7 +47,7 @@ public class TournamentEntity {
         runnerUpId=t.getRunnerUp().getId();
         year=t.getYear();
         month=t.getMonth();
-        //todo 修改表的结构
+
 
     }
 

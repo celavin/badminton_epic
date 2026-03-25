@@ -39,13 +39,6 @@ public class TournamentTest {
     @Test
     //单场细节
     void singleDetailedTest(){
-       /* int limitCount = 8;
-
-        QueryWrapper<Player> queryWrapper = new QueryWrapper<>();
-        // PostgreSQL 专属的随机排序并限制数量
-        queryWrapper.last("ORDER BY RANDOM() LIMIT " + limitCount);
-
-        List<Player> list = playerService.list(queryWrapper);*/
 
         List<Player> list = playerService.list();
 
@@ -63,7 +56,7 @@ public class TournamentTest {
     @Test
     //多场看实力
     void manyTimestest(){
-        HashMap<String,Integer> championCounts = new HashMap<>();//todo 后续可优化,储存更多成绩
+        HashMap<String,Integer> championCounts = new HashMap<>();//
         /*int limitCount = 8;
 
         QueryWrapper<Player> queryWrapper = new QueryWrapper<>();
