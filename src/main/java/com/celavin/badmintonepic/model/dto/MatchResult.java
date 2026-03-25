@@ -21,7 +21,7 @@ public class MatchResult {
     private int bestOf;              // 赛制：3 或 5
 
     // 3. 统计数据 (用于结算或展示)
-    private java.time.LocalDateTime matchTime;
+
 
     // --- 构造函数 (替代 Builder) ---
     public MatchResult(Player winner, Player loser, List<String> scores,
@@ -34,7 +34,7 @@ public class MatchResult {
         this.tournamentName = tournamentName;
         this.roundName = roundName;
         this.bestOf = bestOf;
-        this.matchTime = java.time.LocalDateTime.now();
+
     }
 
 
@@ -100,11 +100,5 @@ public class MatchResult {
         this.bestOf = bestOf;
     }
 
-    public LocalDateTime getMatchTime() {
-        return matchTime;
-    }
 
-    public void setMatchTime(LocalDateTime matchTime) {
-        this.matchTime = matchTime;
-    }
 }

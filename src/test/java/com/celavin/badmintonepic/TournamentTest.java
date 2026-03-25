@@ -47,9 +47,6 @@ public class TournamentTest {
         MatchNode finalNode = t.getFormat().getFinalNode();
         List<MatchNode> allMatches = t.getFormat().getAllMatches();
         Collections.reverse(allMatches);
-        /*for (MatchNode match : allMatches) {
-            match.show();
-        }*/
         TournamentPrinter.show(finalNode);
 
     }
@@ -84,23 +81,7 @@ public class TournamentTest {
 
         System.out.println(sortedMap);
     }
-    @Test
-    //用service执行赛事并保存
-    void test() {
-        List<Player> players = playerService.list();
-        /*for (int i = 0; i < 10; i++) {
 
-            TournamentEntity tournamentEntity =
-                    tournamentManageService.runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
-                            TournamentLevel.RANKED, new KnockOutFormat(), players);
-        }*/
-        TournamentEntity tournamentEntity =
-                tournamentManageService.runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
-                        TournamentLevel.MAJOR, new KnockOutFormat(), players);
-        MatchNode finalNode = tournamentEntity.getFinalNode();
-
-        TournamentPrinter.show(finalNode);
-    }
     @Test
     void simulateYear(){
         gameStateService.loadGame();

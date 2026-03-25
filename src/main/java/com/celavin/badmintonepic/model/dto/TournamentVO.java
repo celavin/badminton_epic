@@ -10,7 +10,10 @@ public class TournamentVO {
     // 1. 赛事基础信息
     private String tournamentName;     // 赛事名称，如"伦敦公开赛"
     private TournamentLevel level;     // 级别，如 Major
-    private LocalDate date;            // 举办年月
+    // 举办年月
+    private int year;
+    private int month;
+
 
     // 2. 荣誉榜单 (核心提取，方便快速查询)
     private Player champion;           // 冠军
@@ -21,11 +24,11 @@ public class TournamentVO {
     private MatchNode finalBracketRoot; // 树形结构的根节点(决赛节点)，包含了整届比赛的所有交手记录
 
     // 构造器 todo 这个构造方法参数不够全面,1.直接补全2.其他方式优化
-    public TournamentVO(String tournamentName, TournamentLevel level, LocalDate date,
+    public TournamentVO(String tournamentName, TournamentLevel level,
                         Player champion, Player runnerUp, MatchNode finalBracketRoot) {
         this.tournamentName = tournamentName;
         this.level = level;
-        this.date = date;
+
         this.champion = champion;
         this.runnerUp = runnerUp;
         this.finalBracketRoot = finalBracketRoot;
@@ -35,8 +38,8 @@ public class TournamentVO {
 
         tournamentName=tournament.getTournamentName();
         level=tournament.getLevel();
-        //todo 先不管 后续时间系统完善后补完
-        date=null;
+        year= tournament.getYear();
+        month=tournament.getMonth();
         champion=tournament.getChampion();
         finalBracketRoot=tournament.getFormat().getFinalNode();
     }
