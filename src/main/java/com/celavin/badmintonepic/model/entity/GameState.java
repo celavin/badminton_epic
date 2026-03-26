@@ -3,9 +3,8 @@ package com.celavin.badmintonepic.model.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.celavin.badmintonepic.service.GameStateService;
 
-
+//当前仅记录时间
 @TableName("game_state")
 public class GameState {
     @TableId(type = IdType.INPUT)//

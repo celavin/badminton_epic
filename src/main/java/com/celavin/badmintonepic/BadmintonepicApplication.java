@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.List;
 
 @SpringBootApplication
-// 请确保括号内的路径与你 PlayerMapper 所在的包名完全一致
+
 @MapperScan("com.celavin.badmintonepic.mapper")
 public class BadmintonepicApplication {
 	public static void main(String[] args) {

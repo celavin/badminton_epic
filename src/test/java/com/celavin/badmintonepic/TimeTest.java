@@ -1,5 +1,6 @@
 package com.celavin.badmintonepic;
 
+import com.celavin.badmintonepic.context.GameTimeContext;
 import com.celavin.badmintonepic.model.entity.GameState;
 import com.celavin.badmintonepic.service.GameStateService;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ public class TimeTest {
     GameStateService gameStateService;
     @Test
     void test(){
-
+        System.out.println(GameTimeContext.getCurrentState());
     }
 
 }
