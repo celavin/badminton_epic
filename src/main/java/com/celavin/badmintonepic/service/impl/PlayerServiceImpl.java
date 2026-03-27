@@ -41,4 +41,9 @@ public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> impleme
         System.out.println("成功生成并保存 " + num + " 名 " + nationality + " 球员！");
         return players;
     }
+
+    @Override
+    public List<Player> getRankedPlayers() {
+        return baseMapper.getRankedPlayers();
+    }
 }

@@ -2,6 +2,7 @@ package com.celavin.badmintonepic.model.entity;
 
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -27,6 +28,9 @@ public class Player {
     private int points = 1200;//default
     private int highestPoints = 1200;//default(从第二年开始,每年第一月第一天刷新)
 
+    // 新增：动态排名字段，不持久化到数据库
+    @TableField(exist = false)
+    private Integer rank;
 
     @Override
     public String toString() {

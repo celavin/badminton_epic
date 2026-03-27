@@ -14,4 +14,8 @@ public interface PlayerService extends IService<Player> {
 
     // 3. 按指定国籍生成一批球员并直接存入数据库（用于后续补充特定国家的青训库）
     List<Player> generateAndSavePlayers(int num, String nationality);
+
+    //按照排名返回球员列表
+    //其他方法返回的player的rank是null
+    List<Player> getRankedPlayers();
 }
