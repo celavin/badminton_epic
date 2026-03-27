@@ -1,6 +1,6 @@
 package com.celavin.badmintonepic.service;
 
-import com.celavin.badmintonepic.engine.simulator.GameEngine;
+import com.celavin.badmintonepic.context.GameTimeContext;
 import com.celavin.badmintonepic.engine.simulator.MatchEngine;
 import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.engine.tournament.format.KnockOutFormat;
@@ -9,10 +9,9 @@ import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 import com.celavin.badmintonepic.model.dto.MatchResult;
 import com.celavin.badmintonepic.model.dto.RawMatchResult;
+import com.celavin.badmintonepic.model.dto.TournamentScheduleEntry;
 import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.model.entity.TournamentEntity;
-import com.celavin.badmintonepic.util.TournamentNameGenerator;
-import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +28,10 @@ public class TournamentManageService {
     TournamentService tournamentService;
     @Autowired
     GameStateService gameStateService;
+    @Autowired
+    TournamentCalendarService tournamentCalendarService;
+    @Autowired
+    TournamentRegistrationService tournamentRegistrationService;
 
     public void simulateNextStep(Tournament tournament) {
         if (tournament.getFormat().isCompleted()) return;
@@ -87,22 +90,28 @@ public class TournamentManageService {
         return new TournamentEntity(tournament);
     }
     public void simulateWholeYear(List<Player> players){
+        gameStateService.loadGame();
+        int currentYear = GameTimeContext.getCurrentYear();
+        int currentMonth = GameTimeContext.getCurrentMonth();
 
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 4; j++) {
-                runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
-                        TournamentLevel.CHALLENGE, new KnockOutFormat(), players);
-                gameStateService.advanceOneMonth();
+        for (int offset = 0; offset < 12; offset++) {
+            int absoluteMonth = currentMonth + offset;
+            int scheduleYear = currentYear + ((absoluteMonth - 1) / 12);
+            int scheduleMonth = ((absoluteMonth - 1) % 12) + 1;
+            List<TournamentScheduleEntry> monthlySchedule = tournamentCalendarService.getMonthlySchedule(scheduleYear, scheduleMonth);
+
+            for (TournamentScheduleEntry scheduleEntry : monthlySchedule) {
+            List<Player> participants = tournamentRegistrationService.selectParticipants(scheduleEntry, players);
+            if (participants.size() >= 2) {
+                runAndSaveTournament(
+                        scheduleEntry.getTournamentName(),
+                        scheduleEntry.getLevel(),
+                        new KnockOutFormat(),
+                        participants);
+                }
             }
-            runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
-                    TournamentLevel.ELITE, new KnockOutFormat(), players);
-            gameStateService.advanceOneMonth();
-            runAndSaveTournament(TournamentNameGenerator.generateRandomName(),
-                    TournamentLevel.MAJOR, new KnockOutFormat(), players);
             gameStateService.advanceOneMonth();
         }
-
-
     }
 
 

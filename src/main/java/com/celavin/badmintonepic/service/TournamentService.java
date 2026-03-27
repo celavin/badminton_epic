@@ -16,4 +16,6 @@ public interface TournamentService extends IService<TournamentEntity> {
     void clearAllTournaments();
     //查看最新十二场赛事
     List<TournamentEntity> getLast12Tournaments();
+    List<TournamentEntity> getTournamentsByYearAndMonth(int year, int month);
+    TournamentEntity getLatestTournamentWithBracket();
 }

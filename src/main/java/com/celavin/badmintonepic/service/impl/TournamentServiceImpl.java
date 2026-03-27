@@ -26,4 +26,14 @@ public class TournamentServiceImpl extends ServiceImpl<TournamentMapper,Tourname
     public List<TournamentEntity> getLast12Tournaments() {
         return baseMapper.getLast12Tournaments();
     }
+
+    @Override
+    public List<TournamentEntity> getTournamentsByYearAndMonth(int year, int month) {
+        return baseMapper.getTournamentsByYearAndMonth(year, month);
+    }
+
+    @Override
+    public TournamentEntity getLatestTournamentWithBracket() {
+        return baseMapper.getLatestTournamentWithBracket();
+    }
 }

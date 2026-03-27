@@ -6,6 +6,7 @@ import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.model.entity.TournamentEntity;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -28,4 +29,18 @@ public interface TournamentMapper  extends BaseMapper<TournamentEntity> {
             "order by id desc\n"+
             "limit 12")
     List<TournamentEntity> getLast12Tournaments();
+
+    @Select("select *\n" +
+            "from tournaments\n" +
+            "where year = #{year}\n" +
+            "  and month = #{month}\n" +
+            "order by id desc")
+    List<TournamentEntity> getTournamentsByYearAndMonth(@Param("year") int year, @Param("month") int month);
+
+    @Select("select *\n" +
+            "from tournaments\n" +
+            "where final_node is not null\n" +
+            "order by id desc\n" +
+            "limit 1")
+    TournamentEntity getLatestTournamentWithBracket();
 }
