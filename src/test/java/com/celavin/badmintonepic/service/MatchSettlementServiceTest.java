@@ -14,8 +14,8 @@ import static org.mockito.Mockito.verifyNoInteractions;
 
 class MatchSettlementServiceTest {
 
-    private MatchSettlementService service;
-    private PlayerService playerService;
+    MatchSettlementService service;
+    PlayerService playerService;
 
     @BeforeEach
     void setUp() {
