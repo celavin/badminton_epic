@@ -132,6 +132,12 @@ public class TournamentTest {
         }
     }
 
+    @Test
+    void singleTournament(){
+        tournamentManageService.runAndSaveTournament("测试公开赛",TournamentLevel.ELITE,new KnockOutFormat(),playerService.list());
+        watchRank();
+    }
+
 
 
 }
