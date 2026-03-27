@@ -6,6 +6,7 @@ player加一个rank字段,方便维护
 接下来实现赛事准入和结算公式
 感觉目前积分变化有点不合常理,另外tournamentManageService待优化,耦合度有点高,设计的也不是很好
 
+
 3.25
 todolist 1.结算层(注意official)
 为了方便结算同时保证不污染,我需要把tournament的simulate方法转移到service里面 over

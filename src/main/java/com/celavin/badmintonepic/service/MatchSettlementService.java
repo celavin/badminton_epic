@@ -5,7 +5,7 @@ import com.celavin.badmintonepic.model.dto.MatchResult;
 import com.celavin.badmintonepic.model.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+//todo采用elo公式结算,后续待优化
 @Service
 public class MatchSettlementService {
     @Autowired
