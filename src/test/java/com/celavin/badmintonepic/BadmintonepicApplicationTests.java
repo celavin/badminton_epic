@@ -1,6 +1,8 @@
 package com.celavin.badmintonepic;
 
+import com.celavin.badmintonepic.model.entity.GameState;
 import com.celavin.badmintonepic.model.entity.Player;
+import com.celavin.badmintonepic.service.GameStateService;
 import com.celavin.badmintonepic.service.PlayerService;
 import com.celavin.badmintonepic.service.TournamentManageService;
 import com.celavin.badmintonepic.service.TournamentService;
@@ -20,6 +22,8 @@ class BadmintonepicApplicationTests {
 	private TournamentManageService tournamentManageService;
 	@Autowired
 	private TournamentService tournamentService;
+	@Autowired
+	GameStateService gameStateService;
 
 	@Test
 	void test() {
@@ -32,10 +36,12 @@ class BadmintonepicApplicationTests {
 
 	}
 	@Test
-	//清空赛事数据
+	//清空赛事数据,重置所有人积分, 重置时间 后续考虑集成成方法
 	void test2() {
 		tournamentService.clearAllTournaments();
-
+		playerService.resetAllPointsToDefault();
+		gameStateService.resetTime();
+		//todo 重置时间
 
 	}
 

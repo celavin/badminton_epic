@@ -46,4 +46,10 @@ public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> impleme
     public List<Player> getRankedPlayers() {
         return baseMapper.getRankedPlayers();
     }
+
+    @Override
+    public void resetAllPointsToDefault() {
+        baseMapper.resetAllPointsToDefault();
+    }
+
 }

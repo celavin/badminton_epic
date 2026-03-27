@@ -4,6 +4,7 @@
 3.27
 player加一个rank字段,方便维护
 接下来实现赛事准入和结算公式
+感觉目前积分变化有点不合常理,另外tournamentManageService待优化,耦合度有点高,设计的也不是很好
 
 3.25
 todolist 1.结算层(注意official)

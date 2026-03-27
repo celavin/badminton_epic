@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.celavin.badmintonepic.model.entity.GameState;
 
 public interface GameStateService extends IService<GameState> {
+    //重置时间
+    void resetTime();
+
     //推进一天
     void advanceOneDay();
     //推进一个月

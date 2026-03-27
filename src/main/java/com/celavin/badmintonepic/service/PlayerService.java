@@ -2,6 +2,7 @@ package com.celavin.badmintonepic.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.celavin.badmintonepic.model.entity.Player;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface PlayerService extends IService<Player> {
     //按照排名返回球员列表
     //其他方法返回的player的rank是null
     List<Player> getRankedPlayers();
+    //重置所有人积分到1200
+    void resetAllPointsToDefault();
 }

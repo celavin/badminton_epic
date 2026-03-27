@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class GameStateServiceImpl extends ServiceImpl<GameStateMapper, GameState> implements GameStateService {
     @Override
+    public void resetTime() {
+        baseMapper.resetTime();
+    }
+
+    @Override
     public void advanceOneDay() {
         // 2. 从内存中极速获取对象引用
         GameState gameState = GameTimeContext.getCurrentState();
