@@ -1,5 +1,6 @@
 package com.celavin.badmintonepic;
 
+import ch.qos.logback.classic.spi.ConfiguratorRank;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.celavin.badmintonepic.context.GameTimeContext;
 import com.celavin.badmintonepic.engine.simulator.MatchEngine;
@@ -121,6 +122,14 @@ public class TournamentTest {
         MatchNode finalNode = t.getFinalNode();
         TournamentPrinter.show(finalNode);
 
+    }
+
+    @Test
+    void watchRank(){
+        List<Player> rankedPlayers = playerService.getRankedPlayers();
+        for (Player rankedPlayer : rankedPlayers) {
+            System.out.println(rankedPlayer.getRank()+":"+rankedPlayer.getName()+" "+ rankedPlayer.getPoints());
+        }
     }
 
 

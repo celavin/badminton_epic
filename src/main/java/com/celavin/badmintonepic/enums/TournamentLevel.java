@@ -5,8 +5,8 @@ public enum TournamentLevel {
     SATELLITE("卫星赛", 1.2),     // L5
     FUTURES("希望赛", 1.5),       // L4
     CHALLENGE("挑战赛", 2.0),     // L3
-    ELITE("精英赛", 5.0),         // L2
-    MAJOR("大师赛", 10.0);      // L1
+    ELITE("精英赛", 3.0),         // L2
+    MAJOR("大师赛", 4.0);      // L1
 
     private final String description;
     private final double multiplier;

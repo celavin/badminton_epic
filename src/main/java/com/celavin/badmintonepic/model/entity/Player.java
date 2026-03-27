@@ -141,4 +141,12 @@ public class Player {
     public void setHighestPoints(int highestPoints) {
         this.highestPoints = highestPoints;
     }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
 }
