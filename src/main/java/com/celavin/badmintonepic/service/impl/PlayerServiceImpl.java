@@ -52,4 +52,9 @@ public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> impleme
         baseMapper.resetAllPointsToDefault();
     }
 
+    @Override
+    public List<Player> getPlayerListByLevelAndNums(int nums) {
+        return baseMapper.getPlayerListByLevelAndNums(nums);
+    }
+
 }

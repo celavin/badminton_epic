@@ -16,4 +16,12 @@ public interface PlayerMapper extends BaseMapper<Player> {
     //重置所有人积分
     @Update("UPDATE players SET points = 1200, highest_points = 1200")
     void resetAllPointsToDefault();
+
+    //
+    @Select("select * from players " +
+            "order by points desc " //+
+            //"where points> "+//todo
+            //"limit {nums} "
+    )
+    List<Player> getPlayerListByLevelAndNums(int nums);
 }
