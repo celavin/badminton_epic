@@ -1,6 +1,7 @@
 package com.celavin.badmintonepic.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.model.dto.ChampionStatsDTO;
 import com.celavin.badmintonepic.model.entity.TournamentEntity;
 import org.springframework.stereotype.Service;
@@ -16,4 +17,7 @@ public interface TournamentService extends IService<TournamentEntity> {
     void clearAllTournaments();
     //查看最新十二场赛事
     List<TournamentEntity> getLast12Tournaments();
+    /**
+     * 存入一场赛事*/
+    void createTournament(Tournament t);
 }

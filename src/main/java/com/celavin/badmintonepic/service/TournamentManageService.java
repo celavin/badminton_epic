@@ -48,6 +48,8 @@ public interface TournamentManageService {
     void simulateWholeYear(List<Player> players);
 
 
-    //todo 需要一个赛历生成的方法,生成1-12月每个月的赛事,status=0
+    /**
+     * 生成一整年的赛事,存进表里,status=0*/
+    void generateYearlyCalendar();
 
 }

@@ -35,7 +35,7 @@ public class TournamentEntity {
     private int year;
     private int month;
 
-    //todo 新加status字段
+
     private TournamentStatus status;
 
 

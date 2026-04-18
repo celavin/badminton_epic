@@ -11,8 +11,12 @@
 1.5.重整tournament和format和service的逻辑,重新理一遍 over
 2.新建一个tournamentStatus的枚举 over
 3.数据库新建字段,实体类新建字段 over
-今日任务完成
 后续 时间调度,赛历生成
+
+学会了在yaml文件配置
+目前卡在:生成年历阶段,我应该直接存入entity,需要考虑entity和tournament互相转换,entity序列化和反序列化可能带来的问题:
+空指针,循环引用,链条断裂,format何时生成,playerlist何时生成,何处保存
+吃完饭再做
 
 4.16
 太久没做了我去

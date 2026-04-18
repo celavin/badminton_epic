@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-//todo 工厂包装tournament,注入policy,context,e.g.
+
 @Component
 public class TournamentFactory {
 
@@ -24,6 +24,17 @@ public class TournamentFactory {
         t.setPlayerNums(requiredPlayerNums);
         t.setYear(GameTimeContext.getCurrentYear());
         t.setMonth(GameTimeContext.getCurrentMonth());
+        return t;
+    }
+    Tournament TournamentFactory(TournamentLevel level, TournamentFormat format,int requiredPlayerNums,int year,int month) {
+        Tournament t = new Tournament();
+        List<Player> playerList = new ArrayList<>();
+        t.setTournamentName(TournamentNameGenerator.generateRandomName());
+        t.setLevel(level);
+        t.setFormat(format);
+        t.setPlayerNums(requiredPlayerNums);
+        t.setYear(year);
+        t.setMonth(month);
         return t;
     }
 }
