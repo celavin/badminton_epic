@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.enums.TournamentLevel;
+import com.celavin.badmintonepic.enums.TournamentStatus;
 import com.celavin.badmintonepic.handler.PgJsonbTypeHandler;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 
@@ -34,6 +35,9 @@ public class TournamentEntity {
     private int year;
     private int month;
 
+    //todo 新加status字段
+    private TournamentStatus status;
+
 
     public TournamentEntity() {}
 
@@ -47,6 +51,7 @@ public class TournamentEntity {
         runnerUpId=t.getRunnerUp().getId();
         year=t.getYear();
         month=t.getMonth();
+        status=t.getStatus();
 
 
     }

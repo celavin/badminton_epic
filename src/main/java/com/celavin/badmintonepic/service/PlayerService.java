@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PlayerService extends IService<Player> {
     // 1. 初始化世界：清空数据库并随机生成一批球员
-    List<Player> initWorld(int num);
+    void initPlayers();
 
     // 2. 临时生成球员（不入库），支持指定国籍（nationality 为 null 则随机）
     List<Player> generatePlayerTemp(int num, String nationality);

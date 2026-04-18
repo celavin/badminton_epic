@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-@Disabled("Manual exploratory scenarios that depend on a running PostgreSQL instance.")
+
 @SpringBootTest
 @ActiveProfiles("test")
 class ManualSimulationScenarios {
@@ -33,6 +33,15 @@ class ManualSimulationScenarios {
 
     @Autowired
     private GameStateService gameStateService;
+
+    @Test
+    /**清空赛事表
+     * 生成一批球员存进数据库*/
+    void initTestWorld(){
+        gameStateService.resetTime();
+        tournamentService.clearAllTournaments();
+        playerService.initPlayers();
+    }
 
     @Test
     void simulateWholeYear() {

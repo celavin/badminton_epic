@@ -4,12 +4,15 @@ import com.celavin.badmintonepic.context.GameTimeContext;
 import com.celavin.badmintonepic.engine.simulator.MatchEngine;
 import com.celavin.badmintonepic.engine.tournament.format.TournamentFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
+import com.celavin.badmintonepic.enums.TournamentStatus;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 import com.celavin.badmintonepic.model.dto.RawMatchResult;
 import com.celavin.badmintonepic.model.dto.TournamentVO;
 import com.celavin.badmintonepic.model.entity.Player;
+import com.celavin.badmintonepic.model.entity.TournamentEntity;
 import com.celavin.badmintonepic.service.MatchSettlementService;
 
+import javax.security.auth.callback.TextOutputCallback;
 import java.util.List;
 
 public class Tournament {
@@ -20,7 +23,8 @@ public class Tournament {
     private int playerNums;
     private List<Player> playerList;
     private int bestOf=5;//默认为5 可优化
-    private boolean isFinished;
+
+    private TournamentStatus status;
     private Player champion;
     private Player runnerUp;
 
@@ -38,6 +42,8 @@ public class Tournament {
         year= GameTimeContext.getCurrentYear();
         month= GameTimeContext.getCurrentMonth();
 
+        status = TournamentStatus.SCHEDULED;
+
     }
 
     public Tournament() {
@@ -46,8 +52,11 @@ public class Tournament {
 
     public Player getChampion() {return champion;}
     public Player getRunnerUp() {return runnerUp;}
+    /**
+     * 调整status,设置冠军和亚军
+     * */
     public void archive(){
-        isFinished=true;
+        status= TournamentStatus.COMPLETED;
         champion=format.getChampion();
         runnerUp=format.getRunnerUp();
 
@@ -102,13 +111,7 @@ public class Tournament {
         this.bestOf = bestOf;
     }
 
-    public boolean isFinished() {
-        return isFinished;
-    }
 
-    public void setFinished(boolean finished) {
-        isFinished = finished;
-    }
 
     public void setChampion(Player champion) {
         this.champion = champion;
@@ -132,5 +135,13 @@ public class Tournament {
 
     public void setMonth(int month) {
         this.month = month;
+    }
+
+    public TournamentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TournamentStatus status) {
+        this.status = status;
     }
 }

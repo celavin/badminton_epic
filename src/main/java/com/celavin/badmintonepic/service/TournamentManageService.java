@@ -17,11 +17,10 @@ import java.util.List;
 
 public interface TournamentManageService {
 
-
+    /**
+     *核心方法,执行一轮
+     */
     void simulateNextStep(Tournament tournament);
-
-
-
     /**
      * 一键模拟整届赛事
      * 测试用
@@ -29,13 +28,13 @@ public interface TournamentManageService {
     void simulateAll(Tournament tournament) ;
 
     /**
-     * 原有的 runAndSaveTournament 方法稍微改动一下
+     * 原有的 runAndSaveTournament 方法稍微改动一下,测试用
      */
     TournamentEntity runAndSaveTournament(String name, TournamentLevel level, TournamentFormat format, List<Player> players);
 
 
     /**
-     * 执行一个赛事但不保存,返回实体类
+     * 执行一个赛事但不保存,返回实体类,测试用
      * @param name
      * @param level
      * @param format
@@ -47,4 +46,8 @@ public interface TournamentManageService {
      * 模拟一整年,测试用
      * */
     void simulateWholeYear(List<Player> players);
+
+
+    //todo 需要一个赛历生成的方法,生成1-12月每个月的赛事,status=0
+
 }

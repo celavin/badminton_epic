@@ -5,6 +5,7 @@ import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.engine.tournament.format.KnockOutFormat;
 import com.celavin.badmintonepic.engine.tournament.format.TournamentFormat;
 import com.celavin.badmintonepic.enums.TournamentLevel;
+import com.celavin.badmintonepic.enums.TournamentStatus;
 import com.celavin.badmintonepic.model.dto.MatchNode;
 import com.celavin.badmintonepic.model.dto.MatchResult;
 import com.celavin.badmintonepic.model.dto.RawMatchResult;
@@ -33,10 +34,7 @@ public class TournamentManageServiceImpl {
 
     public void simulateNextStep(Tournament tournament) {
         if (tournament.getFormat().isCompleted()) return;
-
-
         List<MatchNode> playableMatches = tournament.getFormat().getPlayableMatches();
-
         for (MatchNode matchNode : playableMatches) {
             RawMatchResult result = matchEngine.simulate(matchNode, tournament.getBestOf());
 
@@ -44,7 +42,6 @@ public class TournamentManageServiceImpl {
             //包装成macthresult方便结算
             matchSettlementService.settleSingleMatch(new MatchResult(matchNode,tournament.getTournamentName(),tournament.getLevel()));
         }
-
         // 如果打完这轮比赛就结束了，执行归档
         if (tournament.getFormat().isCompleted()) {
             tournament.archive();
@@ -56,7 +53,7 @@ public class TournamentManageServiceImpl {
      * 测试用
      */
     public void simulateAll(Tournament tournament) {
-        while (!tournament.isFinished()) {
+        while (!(tournament.getStatus()==TournamentStatus.COMPLETED)) {
             simulateNextStep(tournament);
         }
     }

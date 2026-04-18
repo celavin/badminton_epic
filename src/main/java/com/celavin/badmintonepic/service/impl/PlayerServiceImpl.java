@@ -17,13 +17,14 @@ public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> impleme
     private PlayerGenerator playerGenerator;
 
     @Override
-    public List<Player> initWorld(int num) {
+    public void initPlayers() {
         this.remove(null); // 清空旧数据
         // 传入 null 代表国籍全随机
-        List<Player> players = playerGenerator.generate(num, null);
-        this.saveBatch(players);
-        System.out.println("成功初始化 " + num + " 名随机球员！");
-        return players;
+        generateAndSavePlayers(8,"中国");
+        generateAndSavePlayers(8,"日本");
+        generateAndSavePlayers(8,"中国台北");
+        generateAndSavePlayers(8,"英格兰");
+
     }
 
     @Override
