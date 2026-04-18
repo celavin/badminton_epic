@@ -7,7 +7,7 @@ import com.celavin.badmintonepic.model.entity.Player;
 import com.celavin.badmintonepic.model.entity.TournamentEntity;
 import com.celavin.badmintonepic.service.GameStateService;
 import com.celavin.badmintonepic.service.PlayerService;
-import com.celavin.badmintonepic.service.TournamentManageService;
+import com.celavin.badmintonepic.service.impl.TournamentManageServiceImpl;
 import com.celavin.badmintonepic.service.TournamentService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class ManualSimulationScenarios {
     private PlayerService playerService;
 
     @Autowired
-    private TournamentManageService tournamentManageService;
+    private TournamentManageServiceImpl tournamentManageService;
 
     @Autowired
     private TournamentService tournamentService;
