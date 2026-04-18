@@ -40,6 +40,10 @@ public class Tournament {
 
     }
 
+    public Tournament() {
+
+    }
+
     public Player getChampion() {return champion;}
     public Player getRunnerUp() {return runnerUp;}
     public void archive(){

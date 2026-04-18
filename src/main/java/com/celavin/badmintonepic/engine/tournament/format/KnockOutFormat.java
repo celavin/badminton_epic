@@ -132,7 +132,7 @@ public class KnockOutFormat implements TournamentFormat {
         return rootMatch.getLoser();
     }
 
-    //todo 先不管 转移到tournamentresult类实现渲染??
+
     @Override
     public String generateBracket() {
         return "";
