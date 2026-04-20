@@ -28,6 +28,9 @@ public class Player {
     private int points = 1200;//default
     private int highestPoints = 1200;//default(从第二年开始,每年第一月第一天刷新)
 
+    /** 历史最佳排名（数值越小越好），榜单刷新时更新 */
+    private Integer bestRank;
+
     // 新增：动态排名字段，不持久化到数据库
     @TableField(exist = false)
     private Integer rank;
@@ -148,5 +151,13 @@ public class Player {
 
     public void setRank(Integer rank) {
         this.rank = rank;
+    }
+
+    public Integer getBestRank() {
+        return bestRank;
+    }
+
+    public void setBestRank(Integer bestRank) {
+        this.bestRank = bestRank;
     }
 }

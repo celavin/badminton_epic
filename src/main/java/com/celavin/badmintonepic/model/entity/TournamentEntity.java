@@ -4,14 +4,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.enums.TournamentLevel;
 import com.celavin.badmintonepic.enums.TournamentStatus;
 import com.celavin.badmintonepic.handler.PgJsonbTypeHandler;
 import com.celavin.badmintonepic.model.dto.MatchNode;
-
-import java.time.LocalDate;
 
 @TableName(value = "tournaments", autoResultMap = true)
 public class TournamentEntity {
@@ -41,19 +38,50 @@ public class TournamentEntity {
 
     public TournamentEntity() {}
 
-    public TournamentEntity(Tournament t){
-        name=t.getTournamentName();
-        level=t.getLevel();
-        finalNode=t.getFormat().getFinalNode();
-        championName=t.getChampion().getName();
-        championId=t.getChampion().getId();
-        runnerUpName=t.getRunnerUp().getName();
-        runnerUpId=t.getRunnerUp().getId();
-        year=t.getYear();
-        month=t.getMonth();
-        status=t.getStatus();
+    /**
+     * 从内存中的 {@link Tournament} 生成可持久化快照（支持 SCHEDULED / ONGOING / COMPLETED）。
+     */
+    public static TournamentEntity snapshotFromRunningOrCompleted(Tournament t) {
+        TournamentEntity e = new TournamentEntity();
+        e.setName(t.getTournamentName());
+        e.setLevel(t.getLevel());
+        e.setYear(t.getYear());
+        e.setMonth(t.getMonth());
+        MatchNode fn = t.getFormat() != null ? t.getFormat().getFinalNode() : null;
+        e.setFinalNode(fn);
+        TournamentStatus st = t.getStatus();
+        if (st == TournamentStatus.COMPLETED) {
+            e.setStatus(TournamentStatus.COMPLETED);
+            Player c = t.getChampion();
+            if (c != null) {
+                e.setChampionName(c.getName());
+                e.setChampionId(c.getId());
+            }
+            Player r = t.getRunnerUp();
+            if (r != null) {
+                e.setRunnerUpName(r.getName());
+                e.setRunnerUpId(r.getId());
+            }
+        } else if (fn != null) {
+            e.setStatus(TournamentStatus.ONGOING);
+        } else {
+            e.setStatus(TournamentStatus.SCHEDULED);
+        }
+        return e;
+    }
 
-
+    public TournamentEntity(Tournament t) {
+        TournamentEntity snap = snapshotFromRunningOrCompleted(t);
+        this.name = snap.getName();
+        this.level = snap.getLevel();
+        this.finalNode = snap.getFinalNode();
+        this.championName = snap.getChampionName();
+        this.championId = snap.getChampionId();
+        this.runnerUpName = snap.getRunnerUpName();
+        this.runnerUpId = snap.getRunnerUpId();
+        this.year = snap.getYear();
+        this.month = snap.getMonth();
+        this.status = snap.getStatus();
     }
 
     @Override
@@ -141,5 +169,13 @@ public class TournamentEntity {
 
     public void setChampionName(String championName) {
         this.championName = championName;
+    }
+
+    public TournamentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TournamentStatus status) {
+        this.status = status;
     }
 }

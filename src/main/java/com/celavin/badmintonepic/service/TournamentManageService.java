@@ -52,4 +52,14 @@ public interface TournamentManageService {
      * 生成一整年的赛事,存进表里,status=0*/
     void generateYearlyCalendar();
 
+    /**
+     * 从持久化的签表（jsonb 根节点）恢复单败淘汰赛，用于续赛。
+     */
+    Tournament rehydrateKnockOutFromEntity(TournamentEntity entity);
+
+    /**
+     * 将赛历中 SCHEDULED 的一行跑完为 COMPLETED（签表已生成后写库）。
+     */
+    void runScheduledTournamentToCompletion(TournamentEntity scheduled, List<Player> players);
+
 }

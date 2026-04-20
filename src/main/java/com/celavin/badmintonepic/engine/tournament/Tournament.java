@@ -17,6 +17,7 @@ import java.util.List;
 
 public class Tournament {
     private Long id;//todo新增一个id,后续处理影响
+    //todo 需要一个entity转换的构造方法
 
     private String tournamentName;
     private TournamentLevel level;

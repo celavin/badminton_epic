@@ -11,7 +11,11 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "game.calendar")//todo这个注释啥意思
 public class CalendarTemplateConfig {
     private Map<Integer, List<TournamentLevel>> template;
+
     public List<TournamentLevel> getLevelsForMonth(int month) {
+        if (template == null) {
+            return List.of(TournamentLevel.RANKED);
+        }
         return template.getOrDefault(month, List.of(TournamentLevel.RANKED));
     }
 

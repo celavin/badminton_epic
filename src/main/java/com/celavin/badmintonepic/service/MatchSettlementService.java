@@ -10,12 +10,19 @@ import org.springframework.stereotype.Service;
 public class MatchSettlementService {
     @Autowired
     PlayerService playerService;
+    @Autowired
+    MatchRecordService matchRecordService;
 
     // 基础 K 值，决定了积分变动的基本基数
     private static final int BASE_K = 20;
 
-    // 结算单场比赛
+    /** 锦标赛场次结算（默认） */
     public void settleSingleMatch(MatchResult matchResult) {
+        settleSingleMatch(matchResult, MatchRecordService.KIND_TOURNAMENT);
+    }
+
+    /** @param matchKind {@link MatchRecordService#KIND_RANKED} 或 {@link MatchRecordService#KIND_TOURNAMENT} */
+    public void settleSingleMatch(MatchResult matchResult, String matchKind) {
         // 如果是轮空晋级，不产生积分变动（实际比赛没打）
         if (matchResult.getLoser() == null) {
             return;
@@ -58,6 +65,8 @@ public class MatchSettlementService {
         //8.存回表
         playerService.updateById(winner);
         playerService.updateById(loser);
+
+        matchRecordService.recordFromMatchResult(matchResult, matchKind);
     }
 
     /**

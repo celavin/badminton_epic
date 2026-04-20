@@ -1,7 +1,7 @@
 package com.celavin.badmintonepic.service.impl;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.celavin.badmintonepic.engine.tournament.Tournament;
 import com.celavin.badmintonepic.mapper.TournamentMapper;
 import com.celavin.badmintonepic.model.dto.ChampionStatsDTO;
 import com.celavin.badmintonepic.model.entity.TournamentEntity;
@@ -25,5 +25,10 @@ public class TournamentServiceImpl extends ServiceImpl<TournamentMapper,Tourname
     @Override
     public List<TournamentEntity> getLast12Tournaments() {
         return baseMapper.getLast12Tournaments();
+    }
+
+    @Override
+    public void createTournament(Tournament t) {
+        save(TournamentEntity.snapshotFromRunningOrCompleted(t));
     }
 }

@@ -10,18 +10,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 class MatchSettlementServiceTest {
 
     MatchSettlementService service;
     PlayerService playerService;
+    MatchRecordService matchRecordService;
 
     @BeforeEach
     void setUp() {
         service = new MatchSettlementService();
         playerService = mock(PlayerService.class);
         service.playerService = playerService;
+        matchRecordService = mock(MatchRecordService.class);
+        service.matchRecordService = matchRecordService;
     }
 
     @Test
@@ -35,6 +40,7 @@ class MatchSettlementServiceTest {
         assertEquals(1200, winner.getHighestPoints());
         assertEquals(5, winner.getMorale());
         verifyNoInteractions(playerService);
+        verifyNoInteractions(matchRecordService);
     }
 
     @Test
@@ -52,6 +58,7 @@ class MatchSettlementServiceTest {
         assertEquals(4, loser.getMorale());
         verify(playerService, times(1)).updateById(winner);
         verify(playerService, times(1)).updateById(loser);
+        verify(matchRecordService, times(1)).recordFromMatchResult(any(), eq(MatchRecordService.KIND_TOURNAMENT));
     }
 
     @Test
@@ -67,6 +74,7 @@ class MatchSettlementServiceTest {
         assertEquals(1260, winner.getHighestPoints());
         assertEquals(10, winner.getMorale());
         assertEquals(0, loser.getMorale());
+        verify(matchRecordService, times(1)).recordFromMatchResult(any(), eq(MatchRecordService.KIND_TOURNAMENT));
     }
 
     private Player player(String name, int points, int highestPoints, int morale) {

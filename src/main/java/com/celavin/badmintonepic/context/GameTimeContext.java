@@ -21,4 +21,14 @@ public class GameTimeContext {
     public static int getCurrentMonth() {
         return currentState != null ? currentState.getMonth() : 0;
     }
+
+    /** 本月第几周 1–4 */
+    public static int getCurrentWeek() {
+        return currentState != null ? currentState.getWeek() : 0;
+    }
+
+    /** 本周第几天 1–7（周一到周日） */
+    public static int getCurrentDayOfWeek() {
+        return currentState != null ? currentState.getDay() : 0;
+    }
 }

@@ -58,4 +58,27 @@ public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> impleme
         return baseMapper.getPlayerListByLevelAndNums(nums);
     }
 
+    @Override
+    public void refreshBestRanks() {
+        List<Player> ranked = getRankedPlayers();
+        for (int i = 0; i < ranked.size(); i++) {
+            Player p = ranked.get(i);
+            int r = i + 1;
+            Integer br = p.getBestRank();
+            if (br == null || r < br) {
+                p.setBestRank(r);
+                updateById(p);
+            }
+        }
+    }
+
+    @Override
+    public List<Player> getLeaderboard(int limit) {
+        List<Player> all = getRankedPlayers();
+        if (all.size() <= limit) {
+            return all;
+        }
+        return all.subList(0, limit);
+    }
+
 }

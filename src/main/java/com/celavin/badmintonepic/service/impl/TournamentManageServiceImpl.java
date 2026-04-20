@@ -20,7 +20,6 @@ import com.celavin.badmintonepic.service.TournamentManageService;
 import com.celavin.badmintonepic.service.TournamentService;
 import com.celavin.badmintonepic.util.TournamentNameGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,12 +71,15 @@ public class TournamentManageServiceImpl implements TournamentManageService {
      */
     public TournamentEntity runAndSaveTournament(String name, TournamentLevel level, TournamentFormat format, List<Player> players){
         Tournament tournament = new Tournament(name, level, format, players);
-        // 调度权交给自己
+        TournamentEntity ongoing = TournamentEntity.snapshotFromRunningOrCompleted(tournament);
+        tournamentService.save(ongoing);
+
         this.simulateAll(tournament);
 
-        TournamentEntity tournamentEntity = new TournamentEntity(tournament);
-        tournamentService.save(tournamentEntity);
-        return tournamentEntity;
+        TournamentEntity completed = TournamentEntity.snapshotFromRunningOrCompleted(tournament);
+        completed.setId(ongoing.getId());
+        tournamentService.updateById(completed);
+        return completed;
     }
 
     /**
@@ -92,7 +94,7 @@ public class TournamentManageServiceImpl implements TournamentManageService {
         Tournament tournament = new Tournament(name, level, format, players);
         simulateAll(tournament);
 
-        return new TournamentEntity(tournament);
+        return TournamentEntity.snapshotFromRunningOrCompleted(tournament);
     }
     /**
      * 模拟一整年,测试用
@@ -118,14 +120,60 @@ public class TournamentManageServiceImpl implements TournamentManageService {
 
     @Override
     public void generateYearlyCalendar() {
-        //需要检验一下当前时间是否为一月,否则会报错
-        if(GameTimeContext.getCurrentMonth()!=1)return;
         int year = GameTimeContext.getCurrentYear();
-        for (int i = 0; i < 12; i++) {
-            //todo这里应该创建tournament还是直接entity?不知道啊
-            //按理来说这个时候还没打比赛,只是预存进表里,要打的时候再拿出来但我害怕tournament和entity互相转换,entity序列化和反序列化过程中会出现问题
+        long yearRows = tournamentService.lambdaQuery()
+                .eq(TournamentEntity::getYear, year)
+                .count();
+        if (yearRows > 0) {
+            return;
+        }
+        for (int month = 1; month <= 12; month++) {
+            List<TournamentLevel> levels = calendarTemplateConfig.getLevelsForMonth(month);
+            if (levels == null || levels.isEmpty()) {
+                continue;
+            }
+            for (TournamentLevel level : levels) {
+                long existing = tournamentService.lambdaQuery()
+                        .eq(TournamentEntity::getYear, year)
+                        .eq(TournamentEntity::getMonth, month)
+                        .eq(TournamentEntity::getLevel, level)
+                        .eq(TournamentEntity::getStatus, TournamentStatus.SCHEDULED)
+                        .count();
+                if (existing > 0) {
+                    continue;
+                }
+                TournamentEntity row = new TournamentEntity();
+                row.setName(TournamentNameGenerator.generateRandomName());
+                row.setLevel(level);
+                row.setYear(year);
+                row.setMonth(month);
+                row.setStatus(TournamentStatus.SCHEDULED);
+                tournamentService.save(row);
+            }
         }
 
+    }
+
+    @Override
+    public Tournament rehydrateKnockOutFromEntity(TournamentEntity entity) {
+        return tournamentFactory.rehydrateKnockOutFromEntity(entity);
+    }
+
+    @Override
+    public void runScheduledTournamentToCompletion(TournamentEntity scheduled, List<Player> players) {
+        if (scheduled == null || players == null || players.size() < 2) {
+            return;
+        }
+        Tournament tournament = new Tournament(scheduled.getName(), scheduled.getLevel(), new KnockOutFormat(), players);
+        TournamentEntity ongoing = TournamentEntity.snapshotFromRunningOrCompleted(tournament);
+        ongoing.setId(scheduled.getId());
+        tournamentService.updateById(ongoing);
+
+        simulateAll(tournament);
+
+        TournamentEntity done = TournamentEntity.snapshotFromRunningOrCompleted(tournament);
+        done.setId(scheduled.getId());
+        tournamentService.updateById(done);
     }
 
 

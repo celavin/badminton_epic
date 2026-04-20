@@ -23,4 +23,10 @@ public interface PlayerService extends IService<Player> {
 
     //6.通过level和nums,获取特定人数的球员列表 干啥用的我也忘了
     List<Player> getPlayerListByLevelAndNums(int nums);
+
+    /** 按积分排序刷新全员历史最佳排名 */
+    void refreshBestRanks();
+
+    /** 积分榜（含动态 rank） */
+    List<Player> getLeaderboard(int limit);
 }

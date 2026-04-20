@@ -144,6 +144,26 @@ public class KnockOutFormat implements TournamentFormat {
     }
 
     /**
+     * 从持久化恢复的签表根节点重建内存状态（尤其是 {@code allMatches} 扁平列表）。
+     */
+    public void restoreFromRoot(MatchNode root) {
+        this.rootMatch = root;
+        this.allMatches = new ArrayList<>();
+        if (root != null) {
+            collectAllNodes(root, allMatches);
+        }
+    }
+
+    private void collectAllNodes(MatchNode node, List<MatchNode> out) {
+        if (node == null) {
+            return;
+        }
+        out.add(node);
+        collectAllNodes(node.getPrevMatch1(), out);
+        collectAllNodes(node.getPrevMatch2(), out);
+    }
+
+    /**
      * 辅助方法：根据当前轮次的节点总坑位数，生成易读的轮次名称
      * @param slots 坑位数量（必须是2的幂，如 2, 4, 8, 16）
      */
